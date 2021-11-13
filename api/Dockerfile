@@ -1,7 +1,6 @@
 FROM python:3.10-slim-buster AS poetry
 
-COPY ./poetry.lock .
-COPY ./pyproject.toml .
+COPY poetry.lock pyproject.toml ./
 RUN pip3 install poetry
 RUN poetry export -f requirements.txt --output production.txt \
     && poetry export --dev -f requirements.txt --output development.txt
@@ -9,7 +8,7 @@ RUN poetry export -f requirements.txt --output production.txt \
 
 FROM python:3.10-slim-buster AS builder
 
-WORKDIR /app/api/
+WORKDIR /app/
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gcc g++ 
 

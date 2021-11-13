@@ -8,11 +8,4 @@ __pycache__
 frontend/build
 nginx/build
 .next
-.yarn/*
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 .DS_Store

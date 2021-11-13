@@ -9,9 +9,22 @@ services:
             - api/.env
         command: python3 manage.py runserver 0.0.0.0:${API_PORT}
         volumes:
-        - ./api:/app/api
+        - ./api:/app
         ports:
         - ${API_PORT}:${API_PORT}
+    frontend:
+        build: 
+            context: ./frontend
+            target: ${FRONTEND_TARGET}
+        env_file: 
+            - frontend/.env
+        command: npm run dev -- -p ${FRONTEND_PORT}
+        volumes:
+        - ./frontend/src:/app/src
+        ports:
+        - ${FRONTEND_PORT}:${FRONTEND_PORT}
+        depends_on:
+            - api
     nginx:
         build: 
             context: ./nginx
@@ -22,3 +35,4 @@ services:
             - nginx/.env
         depends_on:
             - api
+            - frontend
