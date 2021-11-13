@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    api:
+        build: 
+            context: ./api
+            target: ${API_TARGET}
+        env_file: 
+            - api/.env
+        command: python3 manage.py runserver 0.0.0.0:${API_PORT}
+        volumes:
+        - ./api:/app/api
+        ports:
+        - ${API_PORT}:${API_PORT}
+    nginx:
+        build: 
+            context: ./nginx
+            target: ${NGINX_TARGET}
+        ports:
+            - ${NGINX_PORT}:${NGINX_PORT}
+        env_file: 
+            - nginx/.env
+        depends_on:
+            - api
