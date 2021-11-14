@@ -12,9 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Test api
-        run: cp env/testing.env && .env docker-compose up --build 
+        run: cp env/testing.env .env && docker-compose up --build 
 
   deploy:
+    needs: testing
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
