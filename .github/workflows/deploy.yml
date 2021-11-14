@@ -21,5 +21,6 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           script: |
             cd MyWorkout && git pull
+            cp env/production.env .env
             docker-compose -f docker-compose.production.yml up -d --no-deps --build
             echo "Deployed successfully to Digital Ocean"
