@@ -35,6 +35,6 @@ CMD python3 manage.py test
 FROM builder AS production
 
 ENV DJANGO_SETTINGS_MODULE=api.settings.production
-RUN RUN python3 manage.py migrate
+RUN python3 manage.py migrate
 RUN python3 manage.py collectstatic --no-input
 ENTRYPOINT gunicorn api.asgi:application -k uvicorn.workers.UvicornWorker
