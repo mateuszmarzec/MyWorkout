@@ -20,7 +20,4 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           username: ${{secrets.SSH_USERNAME}}
           script: |
-            mkdir app
-            cd app
-            git clone git@github.com:mateuszmarzec/MyWorkout.git
             echo "Deployed successfully to Digital Ocean"
