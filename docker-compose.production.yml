@@ -8,7 +8,7 @@ services:
             args: 
                 - PORT=${FRONTEND_PORT}
         env_file: 
-            - api/.env
+            - api/env/production.env
         volumes:
             - ./api:/app
             - static_volume:/app/staticfiles
@@ -21,7 +21,7 @@ services:
             args: 
                 - PORT=${FRONTEND_PORT}
         env_file: 
-            - frontend/.env
+            - frontend/env/production.env
         volumes:
             - ./frontend/src:/app/src
         ports:
@@ -33,17 +33,15 @@ services:
             context: ./nginx
             target: ${NGINX_TARGET}
         ports:
-            - 443:443
-            - 80:80
+            - ${NGINX_PORT}:${NGINX_PORT}
         env_file: 
-            - nginx/.env
+            - nginx/env/production.env
         volumes:
             - static_volume:/var/www/api/staticfiles/
         depends_on:
             - api
             - frontend
-    certbot:
-        image: certbot/certbot
+
 
 volumes:
     static_volume:
