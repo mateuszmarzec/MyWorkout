@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+    db:
+        image: postgres
+        environment: 
+        POSTGRES_DB: "db"
+        POSTGRES_HOST_AUTH_METHOD: "trust"
+        volumes:
+        - ./pgdata:/var/lib/postgresql/data/
+        ports:
+        - 5432:5432
+    api:
+        build: 
+            context: ./api
+            target: ${API_TARGET}
+            args: 
+                - PORT=${FRONTEND_PORT}
+        env_file: 
+            - api/env/production.env
+        volumes:
+            - ./api:/app
+            - static_volume:/app/staticfiles
+        ports:
+            - ${API_PORT}:${API_PORT}
+    frontend:
+        build: 
+            context: ./frontend
+            target: ${FRONTEND_TARGET}
+            args: 
+                - PORT=${FRONTEND_PORT}
+        env_file: 
+            - frontend/env/production.env
+        volumes:
+            - ./frontend/src:/app/src
+        ports:
+            - ${FRONTEND_PORT}:${FRONTEND_PORT}
+        depends_on:
+            - api
+    nginx:
+        build: 
+            context: ./nginx
+            target: ${NGINX_TARGET}
+        ports:
+            - ${NGINX_PORT}:${NGINX_PORT}
+        env_file: 
+            - nginx/env/production.env
+        volumes:
+            - static_volume:/var/www/api/staticfiles/
+        depends_on:
+            - api
+            - frontend
+
+
+volumes:
+    static_volume:
