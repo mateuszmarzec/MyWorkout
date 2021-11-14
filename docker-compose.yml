@@ -5,20 +5,23 @@ services:
         build: 
             context: ./api
             target: ${API_TARGET}
+            args: 
+                - PORT=${FRONTEND_PORT}
         env_file: 
             - api/.env
-        command: python3 manage.py runserver 0.0.0.0:${API_PORT}
         volumes:
         - ./api:/app
+        - static_volume:/app/staticfiles
         ports:
         - ${API_PORT}:${API_PORT}
     frontend:
         build: 
             context: ./frontend
             target: ${FRONTEND_TARGET}
+            args: 
+                - PORT=${FRONTEND_PORT}
         env_file: 
             - frontend/.env
-        command: npm run dev -- -p ${FRONTEND_PORT}
         volumes:
         - ./frontend/src:/app/src
         ports:
@@ -33,6 +36,12 @@ services:
             - ${NGINX_PORT}:${NGINX_PORT}
         env_file: 
             - nginx/.env
+        volumes:
+            - static_volume:/var/www/api/staticfiles/
         depends_on:
             - api
             - frontend
+
+
+volumes:
+    static_volume:

@@ -9,3 +9,4 @@ frontend/build
 nginx/build
 .next
 .DS_Store
+db.sqlite3

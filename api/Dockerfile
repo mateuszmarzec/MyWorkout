@@ -22,11 +22,12 @@ RUN python3 manage.py migrate
 
 FROM builder AS local
 
-CMD python3 manage.py runserver
+ARG PORT
+CMD python3 manage.py runserver 0.0.0.0:${PORT}
 
 
 FROM builder AS production
 
 ENV DJANGO_SETTINGS_MODULE=api.settings.production
-RUN python3 manage.py collectstatic
-CMD gunicorn api.asgi:application -k uvicorn.workers.UvicornWorker
+RUN python3 manage.py collectstatic --no-input
+ENTRYPOINT gunicorn api.asgi:application -k uvicorn.workers.UvicornWorker
