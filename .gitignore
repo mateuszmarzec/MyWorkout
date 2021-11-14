@@ -1,0 +1,13 @@
+staticfiles
+mediafiles
+.idea
+pgdata
+node_modules
+__pycache__
+.vscode
+frontend/build
+nginx/build
+.next
+.DS_Store
+db.sqlite3
+.env
