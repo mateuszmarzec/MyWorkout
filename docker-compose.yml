@@ -4,12 +4,12 @@ services:
     db:
         image: postgres
         environment: 
-        POSTGRES_DB: "db"
-        POSTGRES_HOST_AUTH_METHOD: "trust"
+            POSTGRES_DB: "db"
+            POSTGRES_HOST_AUTH_METHOD: "trust"
         volumes:
-        - ./pgdata:/var/lib/postgresql/data/
+            - ./pgdata:/var/lib/postgresql/data/
         ports:
-        - 5432:5432
+            - 5432:5432
     api:
         build: 
             context: ./api
@@ -42,8 +42,7 @@ services:
             context: ./nginx
             target: ${NGINX_TARGET}
         ports:
-            - 443:443
-            - 80:80
+            - ${NGINX_PORT}:${NGINX_PORT}
         env_file: 
             - nginx/.env
         volumes:
