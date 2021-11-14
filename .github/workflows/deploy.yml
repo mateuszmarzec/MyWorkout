@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Test api
-        run: cp env/testing.env .env && cp api/env/testing.env api/.env && cp frontend/env/testing.env frontend/.env && cp nginx/env/testing.env nginx/.env && docker-compose up --build
+        run: cp env/testing.env .env && cp api/env/testing.env api/.env && cp frontend/env/testing.env frontend/.env && cp nginx/env/testing.env nginx/.env && docker-compose up --build api
 
   deploy:
     needs: testing
