@@ -1,4 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-cd frontend && npm run lint
+# Frontend linting
+RED='\033[1;31m'
+echo "${RED}Checking js formatting"
+(cd frontend && npm run lint)
+
+# Backend linting
+echo "${RED}Checking python formatting"
+(cd api && black . && isort . && autoflake . && mypy .)
