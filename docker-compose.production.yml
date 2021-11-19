@@ -1,21 +1,14 @@
 version: '3'
 
 services:
-    db:
-        image: postgres
-        environment: 
-            POSTGRES_DB: "db"
-            POSTGRES_HOST_AUTH_METHOD: "trust"
-        volumes:
-            - ./pgdata:/var/lib/postgresql/data/
-        ports:
-            - 5432:5432
     api:
         build: 
             context: ./api
             target: ${API_TARGET}
             args: 
                 - PORT=${FRONTEND_PORT}
+                - SECRET_KEY=${API_SECRET_KEY}
+                - DATABASE_URL=${API_DATABASE_URL}
         env_file: 
             - api/env/production.env
         volumes:
@@ -48,10 +41,16 @@ services:
             - nginx/env/production.env
         volumes:
             - static_volume:/var/www/api/staticfiles/
+            # - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
         depends_on:
             - api
             - frontend
-
+    certbot:
+        image: certbot/certbot:latest
+        volumes:
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
 
 volumes:
     static_volume:

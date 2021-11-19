@@ -8,6 +8,12 @@ RUN poetry export -f requirements.txt --output production.txt \
 
 FROM python:3.10-slim-buster AS builder
 
+ARG SECRET_KEY
+ENV SECRET_KEY=${SECRET_KEY}
+
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 WORKDIR /app/
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gcc g++ 
@@ -22,7 +28,7 @@ COPY . .
 FROM builder AS local
 
 ARG PORT
-CMD python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:${PORT}
+CMD python3 manage.py runserver 0.0.0.0:${PORT}
 
 
 FROM builder AS testing
