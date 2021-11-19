@@ -1,4 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-cd frontend && npm run lint
+# Frontend linting
+echo "Checking js formatting"
+(cd frontend && npm run lint)
+
+# Backend linting
+echo "Checking python formatting"
+(cd api && black . && isort . && autoflake .)
