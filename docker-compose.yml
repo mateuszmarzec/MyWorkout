@@ -21,6 +21,7 @@ services:
         volumes:
             - ./api:/app
             - static_volume:/app/staticfiles
+        command: python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:${API_PORT}
         ports:
             - ${API_PORT}:${API_PORT}
     frontend:
