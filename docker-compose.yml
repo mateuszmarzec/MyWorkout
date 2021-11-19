@@ -1,21 +1,13 @@
 version: '3'
 
 services:
-    db:
-        image: postgres
-        environment: 
-            POSTGRES_DB: "db"
-            POSTGRES_HOST_AUTH_METHOD: "trust"
-        volumes:
-            - ./pgdata:/var/lib/postgresql/data/
-        ports:
-            - 5432:5432
     api:
         build: 
             context: ./api
             target: ${API_TARGET}
             args: 
-                - PORT=${FRONTEND_PORT}
+                - PORT=${API_PORT}
+                - SECRET_KEY=${API_SECRET_KEY}
         env_file: 
             - api/.env
         volumes:
