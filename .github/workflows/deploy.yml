@@ -28,8 +28,8 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           username: ${{secrets.SSH_USERNAME}}
           script: |
-            cd MyWorkout && git pull
-            cp env/production.env .env
-            export API_DATABASE_URL=${{secrets.API_DATABASE_URL}} API_SECRET_KEY=${{secrets.SECRET_KEY}}
-            docker-compose -f docker-compose.production.yml up -d --no-deps --build
-            echo "Deployed successfully to Digital Ocean"
+            cd MyWorkout && git pull \
+            && cp env/production.env .env \
+            && export API_DATABASE_URL=${{secrets.API_DATABASE_URL}} API_SECRET_KEY=${{secrets.SECRET_KEY}} \
+            && docker-compose -f docker-compose.production.yml up -d --no-deps --build \
+            && echo "Deployed successfully to Digital Ocean"
