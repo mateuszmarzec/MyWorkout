@@ -6,7 +6,6 @@ services:
             context: ./api
             target: ${API_TARGET}
             args: 
-                - PORT=${FRONTEND_PORT}
                 - SECRET_KEY=${API_SECRET_KEY}
                 - DATABASE_URL=${API_DATABASE_URL}
         env_file: 
