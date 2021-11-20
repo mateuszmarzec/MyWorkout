@@ -9,11 +9,10 @@ services:
                 - PORT=${API_PORT}
                 - SECRET_KEY=${API_SECRET_KEY}
         env_file: 
-            - api/.env
+            - api/env/local.env
         volumes:
             - ./api:/app
             - static_volume:/app/staticfiles
-        command: python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:${API_PORT}
         ports:
             - ${API_PORT}:${API_PORT}
     frontend:
@@ -23,7 +22,7 @@ services:
             args: 
                 - PORT=${FRONTEND_PORT}
         env_file: 
-            - frontend/.env
+            - frontend/env/local.env
         volumes:
             - ./frontend/src:/app/src
         ports:
@@ -37,7 +36,7 @@ services:
         ports:
             - ${NGINX_PORT}:${NGINX_PORT}
         env_file: 
-            - nginx/.env
+            - nginx/env/local.env
         volumes:
             - static_volume:/var/www/api/staticfiles/
         depends_on:
