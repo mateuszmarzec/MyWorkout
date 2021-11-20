@@ -12,3 +12,4 @@ nginx/build
 db.sqlite3
 .env
 venv
+.mypy_cache

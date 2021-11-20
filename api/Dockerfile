@@ -28,7 +28,7 @@ COPY . .
 FROM builder AS local
 
 ARG PORT
-CMD python3 manage.py runserver 0.0.0.0:${PORT}
+CMD python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:${PORT}
 
 
 FROM builder AS testing
