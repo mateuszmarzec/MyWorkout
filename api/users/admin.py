@@ -1,22 +1,26 @@
 from typing import Tuple
 
 from django.contrib import admin
-from django.contrib.auth.admin import GroupAdmin
+from django.contrib.admin import ModelAdmin, display
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
+from django.db.models import QuerySet
+from django.http import HttpRequest
 
-from .models import Group as UserGroup
-from .models import User, Email
+from users.models import Email
+from users.models import Group as UserGroup
+from users.models import User
 
 
-def send_activation_email(modeladmin, request, queryset) -> None:
+@display(description="Send activation email")
+def send_activation_email(
+    modeladmin: ModelAdmin, request: HttpRequest, queryset: QuerySet
+) -> None:
     for user in queryset:
         user.send_email(
             email=Email.objects.get(code="activate"), context={"elo": "elo"}
         )
-
-
-send_activation_email.short_description = "Send activation email"
 
 
 @admin.register(User)
@@ -32,7 +36,7 @@ class UserAdmin(BaseUserAdmin):
     ordering: list = ["date_joined", "last_login", "email"]
     exclude: list = ["username"]
     search_fields: list = ["email", "first_name", "last_name"]
-    fieldsets: Tuple[tuple] = (
+    fieldsets: tuple = (
         (None, {"fields": ("email", "password")}),
         ("Personal info", {"fields": ("first_name", "last_name")}),
         (
@@ -62,7 +66,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 @admin.register(UserGroup)
-class GroupAdmin(GroupAdmin):
+class GroupAdmin(BaseGroupAdmin):
     pass
 
 

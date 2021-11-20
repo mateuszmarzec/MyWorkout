@@ -3,9 +3,14 @@
 
 # Frontend linting
 RED='\033[1;31m'
+CYAN='\033[0;36m'
 echo "${RED}Checking js formatting"
 (cd frontend && npm run lint)
 
 # Backend linting
 echo "${RED}Checking python formatting"
-(cd api && black . && isort . && autoflake . && mypy .)
+cd api
+echo "${CYAN}Black: \n" && black .
+echo "${CYAN}Isort: \n" && isort .
+echo "${CYAN}Autoflake: \n" && autoflake .
+echo "${CYAN}Mypy: \n" && mypy .
