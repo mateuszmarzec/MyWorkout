@@ -1,9 +1,11 @@
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import Group, PermissionsMixin
+from django.contrib.auth.models import Group as BaseGroup
+from django.contrib.auth.models import PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
+from django.db.models import QuerySet
 from django.template import Context, Template
-
+from workouts import models as workout_models
 from users.managers import UserManager
 
 
@@ -32,14 +34,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS: list[str] = []
 
     class Meta:
         verbose_name = "user"
         verbose_name_plural = "users"
 
-    def send_email(self, email: Email, context: dict) -> bool:
-        context = Context(context)
+    def send_email(self, email: Email, context_data: dict) -> bool:
+        context = Context(context_data)
         template = Template(email.message)
         send_mail(
             email.subject,
@@ -49,8 +51,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
         return True
 
+    @property
+    def workout_plans(self) -> QuerySet:
+        queryset = self.workouts.filter(workout_plan__isnull=True)
+        queryset.model = workout_models.WorkoutPlan
+        return queryset
 
-class Group(Group):
+    @property
+    def workout_activities(self) -> QuerySet:
+        queryset = self.workouts.filter(workout_plan__isnull=False)
+        queryset.model = workout_models.WorkoutActivity
+        return queryset
+
+
+class Group(BaseGroup):
     class Meta:
         proxy = True
         app_label = "users"

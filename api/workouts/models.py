@@ -1,8 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models import QuerySet
 
-from workouts.managers import WorkoutPlanManager, WorkoutActivityManager
+from workouts.managers import WorkoutActivityManager, WorkoutPlanManager
 
 User = get_user_model()
 
@@ -14,15 +13,23 @@ class Workout(models.Model):
         through="WorkoutExercise",
         through_fields=("workout", "exercise"),
     )
-    workout_plan = models.ForeignKey(to="self", on_delete=models.SET_NULL, related_name="workouts", null=True, blank=True)
+    workout_plan = models.ForeignKey(
+        to="self",
+        on_delete=models.SET_NULL,
+        related_name="workouts",
+        null=True,
+        blank=True,
+    )
     note = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="workouts")
+    user = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, related_name="workouts"
+    )
 
     def __str__(self) -> str:
-        return f"{self.name =} - {self.user =}"
+        return f"{self.name} - User: {self.user}"
 
 
 class WorkoutPlan(Workout):
@@ -56,11 +63,13 @@ class WorkoutExercise(models.Model):
         verbose_name_plural = "workout exercises"
 
     def __str__(self) -> str:
-        return f"{self.workout =} - {self.exercise =}"
+        return f"{self.workout.name} - Exercise: {self.exercise}"
 
 
 class WorkoutExerciseSet(models.Model):
-    workout_exercise = models.ForeignKey(to=WorkoutExercise, on_delete=models.CASCADE, related_name="sets")
+    workout_exercise = models.ForeignKey(
+        to=WorkoutExercise, on_delete=models.CASCADE, related_name="sets"
+    )
     reps = models.SmallIntegerField()
     weight = models.DecimalField(decimal_places=1, max_digits=4)
 
@@ -69,7 +78,7 @@ class WorkoutExerciseSet(models.Model):
         verbose_name_plural = "workout exercise sets"
 
     def __str__(self) -> str:
-        return f"{self.workout_exercise} - {self.reps =} - {self.weight =}"
+        return f"{self.workout_exercise} - Reps: {self.reps} - Weight: {self.weight}kg"
 
 
 class Muscle(models.Model):
