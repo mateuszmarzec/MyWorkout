@@ -5,8 +5,9 @@ from django.core.mail import send_mail
 from django.db import models
 from django.db.models import QuerySet
 from django.template import Context, Template
-from workouts import models as workout_models
+
 from users.managers import UserManager
+from workouts import models as workout_models
 
 
 class Email(models.Model):
