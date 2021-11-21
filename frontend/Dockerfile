@@ -18,7 +18,7 @@ ARG PORT
 WORKDIR /app
 COPY . .
 COPY --from=deps node_modules ./node_modules
-CMD npm run dev -- -p ${PORT}
+CMD npm run dev -p ${PORT}
 
 
 FROM node:17.1-buster-slim AS production

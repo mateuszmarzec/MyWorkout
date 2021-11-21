@@ -12,6 +12,9 @@ uvicorn = "^0.15.0"
 sentry-sdk = "^1.4.3"
 psycopg2-binary = "^2.9.2"
 dj-database-url = "^0.5.0"
+djangorestframework = "^3.12.4"
+djangorestframework-simplejwt = "^5.0.0"
+django-filter = "^21.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
@@ -20,6 +23,7 @@ isort = "^5.10.1"
 autoflake = "^1.4"
 mypy = "^0.910"
 django-stubs = "^1.9.0"
+djangorestframework-stubs = "^1.4.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -69,10 +73,10 @@ python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
-plugins = ["mypy_django_plugin.main"]
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 
 [[tool.mypy.overrides]]
-module = "dj_database_url"
+module = ["dj_database_url", "rest_framework_simplejwt.serializers", "rest_framework_simplejwt.views"]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]

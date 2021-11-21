@@ -1,0 +1,8 @@
+{
+    "sign_in": "Zaloguj",
+    "email": "Adres Email",
+    "password": "Hasło",
+    "forgot_password": "Zapomniałeś hasła",
+    "dont_have_account": "Nie masz konta? Zarejestruj się",
+    "login_error": ""
+}
