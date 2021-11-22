@@ -6,27 +6,27 @@ services:
             context: ./api
             target: ${API_TARGET}
             args: 
-                - SECRET_KEY=${API_SECRET_KEY}
-                - DATABASE_URL=${API_DATABASE_URL}
+                SECRET_KEY: ${API_SECRET_KEY}
+                DATABASE_URL: ${API_DATABASE_URL}
         env_file: 
             - api/env/production.env
         volumes:
             - ./api:/app
             - static_volume:/app/staticfiles
         expose:
-            - FRONTEND_PORT
+            - ${API_PORT}
     frontend:
         build: 
             context: ./frontend
             target: ${FRONTEND_TARGET}
             args: 
-                - PORT=${FRONTEND_PORT}
+                PORT: ${FRONTEND_PORT}
         env_file: 
             - frontend/env/production.env
         volumes:
             - ./frontend/src:/app/src
         expose:
-            - FRONTEND_PORT
+            - ${API_PORT}
         depends_on:
             - api
     nginx:
