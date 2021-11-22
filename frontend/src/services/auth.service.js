@@ -16,8 +16,9 @@ export class CredentialsError extends Error {
 
 class AuthService {
     async login(email, password) {
+        let response
         try {
-            let response = await axios.post('/token/obtain/', {email, password})
+            response = await axios.post('/token/obtain/', {email, password})
         }
         catch(error) {
             let responseError = error.response
@@ -32,7 +33,7 @@ class AuthService {
         localStorage.setItem('accessToken', response.data.access);
         localStorage.setItem('refreshToken', response.data.refresh);
         return response.data
-    }
+    } 
 
     logout() {
         localStorage.removeItem('accessToken');
