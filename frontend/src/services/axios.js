@@ -1,5 +1,5 @@
 import baseAxios from 'axios';
-const API_URL = "api/"
+const API_URL = "/api"
 
 const instanceTokenizeAxios = baseAxios.create({
     baseURL: API_URL
@@ -27,7 +27,7 @@ instanceTokenizeAxios.interceptors.response.use(
         const refreshToken = localStorage.getItem('refreshToken')
         if (refreshToken && error.response.status === 401 && !originalRequest._retry){
             originalRequest._retry = true;
-            return instanceTokenizeAxios.post(`${API_URL}/token/refresh/`, { refresh: refreshToken }, {_retry: true})
+            return instanceTokenizeAxios.post(`/token/refresh/`, { refresh: refreshToken }, {_retry: true})
             .then((res) => {
               if (res.status === 200) {
                 localStorage.setItem("accessToken", res.data.access);
