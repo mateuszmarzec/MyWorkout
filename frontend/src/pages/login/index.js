@@ -9,7 +9,7 @@ const Login = () => {
 }
 
 export async function getStaticProps({ locale }) {
-    return { props: { ...await serverSideTranslations(locale) } }
+    return { props: { ...await serverSideTranslations(locale, ['login']) } }
 }
 
 export default Login;
