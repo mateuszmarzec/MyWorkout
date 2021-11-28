@@ -4,6 +4,7 @@ import { setCurrentUser } from '../../features/currentUserSlice';
 import { setIsLoggedIn } from '../../features/appSlice';
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { GoogleFonts } from "nextjs-google-fonts/GoogleFonts"
 
 
 function Layout({children}) {
@@ -17,6 +18,7 @@ function Layout({children}) {
     return (
         <div>
             <Head>
+                {GoogleFonts()}
                 <title>My Workout</title>
             </Head>
             <div>

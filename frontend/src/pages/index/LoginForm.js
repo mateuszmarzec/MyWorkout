@@ -32,7 +32,7 @@ const LoginForm = () => {
     return (
         <div>
             <Container component="main" maxWidth="xs">
-            <Typography component="h1" variant="h4" paddingTop="60px">
+            <Typography component="h1" variant="h4">
                 {t('sign_in')}
             </Typography>
             <Formik validationSchema={schema} validateOnChange={false} validateOnBlur={false} onSubmit={handleLogin} initialValues={initialValues}>
