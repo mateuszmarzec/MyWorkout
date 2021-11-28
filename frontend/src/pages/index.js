@@ -1,11 +1,16 @@
 import React from 'react'
+import Header from './index/Header';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-const Index = () => {
+function Index() {
   return (
-    <div className="text-5xl text-center">
-      MyWorkout
-    </div>
+    <>
+      <Header/>
+    </>
   )
+}
+export async function getStaticProps({ locale }) {
+  return { props: { ...await serverSideTranslations(locale) } }
 }
 
 export default Index
