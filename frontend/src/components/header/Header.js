@@ -1,7 +1,7 @@
 import React from 'react'
-import LoginForm from './LoginForm';
-import BaseSection from '../../components/sections/BaseSection';
+import BaseSection from '../sections/BaseSection';
 import { useTranslation } from 'next-i18next';
+import LoginForm from '../forms/LoginForm';
 
 const Header = () => {
     const { t } = useTranslation('header')

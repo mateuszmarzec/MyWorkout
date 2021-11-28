@@ -6,7 +6,7 @@ import { login, selectAuth } from '../../features/authSlice';
 import { Grid, Container, Button, Typography, Alert } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link'
-import StyledTextInput from '../../components/inputs/StyledTextInput';
+import StyledTextInput from '../inputs/StyledTextInput';
 
 
 const LoginForm = () => {

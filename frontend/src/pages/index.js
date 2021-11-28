@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from './index/Header';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Header from '../components/header/Header';
 
 function Index() {
   return (
