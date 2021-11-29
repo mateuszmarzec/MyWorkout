@@ -1,5 +1,15 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+colorWithOpacity = (opacityVariable, opacityValue, color) => {
+  if (opacityValue !== undefined) {
+    return `rgba(${color}, ${opacityValue})`
+  }
+  if (opacityVariable !== undefined) {
+    return `rgba(${color}, var(${opacityVariable}, 1))`
+  }
+  return `rgb(${color})`
+}
+
 const menuPadding = {
   'menu': '98px',
   'menuXs': '70px',
@@ -27,9 +37,39 @@ module.exports = {
       '3xl': '1920px',
     },
     extend: {
+      colors: {
+        primary: {
+          DEFAULT: ({ opacityVariable, opacityValue }) => {
+            return colorWithOpacity(opacityVariable, opacityValue, 'var(--primary)')
+          },
+        },
+        secondary: {
+          DEFAULT: ({ opacityVariable, opacityValue }) => {
+            return colorWithOpacity(opacityVariable, opacityValue, 'var(--secondary)')
+          },
+        },
+        third: {
+          DEFAULT: ({ opacityVariable, opacityValue }) => {
+            return colorWithOpacity(opacityVariable, opacityValue, 'var(--third)')
+          },
+        },
+        fourth: {
+          DEFAULT: ({ opacityVariable, opacityValue }) => {
+            return colorWithOpacity(opacityVariable, opacityValue, 'var(--fourth)')
+          },
+        },
+        fifth: {
+          DEFAULT: ({ opacityVariable, opacityValue }) => {
+            return colorWithOpacity(opacityVariable, opacityValue, 'var(--fifth)')
+          },
+        }
+      },
       maxWidth: {
         'XlMax': '1440px',
       },
+      boxShadow: {
+        'input': '0 4px 0 rgba(91,105,135,0.2)',
+       }
     },
   },
   variants: {
