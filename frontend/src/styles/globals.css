@@ -1,0 +1,13 @@
+@import './palette.css';
+@tailwind base;
+
+html {
+  @apply font-light;
+}
+body {
+  @apply text-fourth;
+  @apply bg-third;
+}
+
+@tailwind components;
+@tailwind utilities;

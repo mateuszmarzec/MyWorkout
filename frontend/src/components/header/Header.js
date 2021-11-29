@@ -8,12 +8,12 @@ const Header = () => {
 
     return (
         <BaseSection>
-            <div className="flex flex-row justify-between"> 
-                <div className="my-auto">
-                        <h1 className="text-[60px] leading-[64px] font-bold tracking-tight">{t('title')}</h1>
-                        <h3 className="text-[30px]">{t('subtitle')}</h3>
+            <div className="flex flex-col md:flex-row justify-between"> 
+                <div className="my-auto md:w-1/2 md:mr-4">
+                        <h1 className="text-[46px] text-primary leading-[50px] font-bold tracking-tight lg:text-[60px] lg:leading-[64px]">{t('title')}</h1>
+                        <h3 className="pt-[16px] text-[18px] lg:text-[24px]">{t('subtitle')}</h3>
                 </div>
-                <div className="my-auto">
+                <div className="my-auto md:w-1/2 md:ml-4">
                     <LoginForm/>
                 </div>
             </div>
