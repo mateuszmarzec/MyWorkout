@@ -37,14 +37,8 @@ class CustomerSerializer(Serializer):
         allow_blank=False,
         validators=[UniqueValidator(queryset=User.objects.all())],
     )
-    password = CharField(allow_blank=False, min_length=8)
-    password_confirmation = CharField(allow_blank=False, min_length=8)
-    first_name = CharField(allow_blank=False)
-    last_name = CharField(allow_blank=False)
-
-    city = CharField(allow_blank=False)
-    address = CharField(allow_blank=False)
-    postal_code = CharField(allow_blank=False)
+    password = CharField(allow_blank=False, min_length=9)
+    password_confirmation = CharField(allow_blank=False, min_length=9)
 
     def validate(self, attrs: dict) -> dict:
         data: dict = super().validate(attrs)
@@ -52,3 +46,12 @@ class CustomerSerializer(Serializer):
             raise ValidationError("Passwords don't match")
 
         return data
+
+
+class ActivationSerializer(Serializer):
+    uidb64 = CharField(allow_blank=False)
+    token = CharField(allow_blank=False)
+
+
+class ValidateEmailSerializer(Serializer):
+    email = EmailField(allow_blank=False, validators=[UniqueValidator(queryset=User.objects.all())])

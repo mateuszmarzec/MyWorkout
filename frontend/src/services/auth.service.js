@@ -35,16 +35,29 @@ class AuthService {
         return response.data
     } 
 
+    async register(payload) {
+        const response = await axios.post('/register/', { ...payload });
+        return response.data;
+    }
+
+    async validateEmail(email) {
+        const response = await axios.get(`/validate-email/${email}`);
+        return response.data;
+    }
+
+    async activate(uidb64, token) {
+        const response = await axios.post('/activate/', { uidb64, token });
+        return response.data;
+    }
+
     logout() {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
     }
 
-    getCurrentUser() {
-        return tokenizeAxios.get('/current-user/')
-        .then(response => {
-            return response.data
-        })
+    async getCurrentUser() {
+        const response = await tokenizeAxios.get('/current-user/');
+        return response.data;
     }
 }
 

@@ -3,18 +3,18 @@ import { capitalize } from '../../utils/extraFunctions';
 import { useField } from 'formik';
 
 
-function StyledTextInput({label, error, ...props}) {
+function StyledTextInput({...props}) {
     const [field, meta] = useField(props);
 
     return (
-        <>
+        <div className="mb-4">
             <input
-                className={"rounded-[8px] border shadow-input font-light box-border font-[16px] h-[56px] p-[16px] w-full border-fifth focus:outline-none focus:border-secondary " + (error ? "border-red-700": "")}
+                className={"rounded-[8px] border shadow-input font-light box-border font-[16px] h-[56px] p-[16px] w-full border-fifth focus:outline-none focus:border-secondary " + (meta.touched && !!meta.error ? "border-red-700": "")}
                 {...props}
                 {...field}
             />
-            {error && <p className="text-red-700">{capitalize(error)}</p>}
-        </>
+            {meta.touched && !!meta.error && <p className="text-red-700 font-normal text-sm pl-2">{capitalize(meta.error)}</p>}
+        </div>
     )
 }
 

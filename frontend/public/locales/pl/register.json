@@ -1,0 +1,8 @@
+{
+    "sign_up": "Rejestracja",
+    "email": "Adres Email",
+    "password": "Hasło",
+    "passwordConfirm": "Potwierdz hasło",
+    "success": "Konto założone! Wysłaliśmy email z linkiem aktywacyjnym",
+    "error": "Wystąpił niespodziewany błąd!"
+}
