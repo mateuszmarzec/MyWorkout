@@ -1,7 +1,8 @@
 import React from 'react'
 import BaseSection from '../sections/BaseSection';
 import { useTranslation } from 'next-i18next';
-import LoginForm from '../forms/LoginForm';
+import LoginForm from '../forms/Login/LoginForm';
+import RegisterForm from '../forms/Register/RegisterForm';
 
 const Header = () => {
     const { t } = useTranslation('header')
@@ -14,7 +15,7 @@ const Header = () => {
                         <h3 className="pt-[16px] text-[18px] lg:text-[24px]">{t('subtitle')}</h3>
                 </div>
                 <div className="my-auto md:w-1/2 md:ml-4">
-                    <LoginForm/>
+                    <RegisterForm/>
                 </div>
             </div>
         </BaseSection>

@@ -1,0 +1,8 @@
+{
+    "sign_up": "Sign Up",
+    "email": "Email Address",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "success": "Account successfully created! We sent you an email with activation link",
+    "error": "Unexpected error occurred!"
+}

@@ -1,4 +1,6 @@
 import baseAxios from 'axios';
+import applyCaseMiddleware from 'axios-case-converter';
+
 const API_URL = "/api"
 
 const instanceTokenizeAxios = baseAxios.create({
@@ -45,8 +47,8 @@ instanceTokenizeAxios.interceptors.response.use(
     }
 );
 
-export const axios = baseAxios.create({
+export const axios = applyCaseMiddleware(baseAxios.create({
     baseURL: API_URL
-});
+}));
 
 export const tokenizeAxios = instanceTokenizeAxios;

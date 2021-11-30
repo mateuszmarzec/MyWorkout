@@ -3,6 +3,7 @@ from api.settings.base import *
 DEBUG = True
 
 ALLOWED_HOSTS.append("localhost")
+BASE_URL = "http://localhost"
 
 DATABASES = {
     "default": {
