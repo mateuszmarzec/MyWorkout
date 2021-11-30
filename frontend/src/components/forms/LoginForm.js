@@ -40,7 +40,7 @@ const LoginForm = () => {
                 <Formik validationSchema={schema} validateOnChange={false} validateOnBlur={false} onSubmit={handleLogin} initialValues={initialValues}>
                 {({values, touched, errors, handleSubmit, isSubmitting, handleChange}) => (
                     <form className="mt-8" onSubmit={handleSubmit}>
-                        {loginError && <Error severity="error">{t('loginError')} {loginError}</Error>}
+                        {loginError && <Error>{t('loginError')} {loginError}</Error>}
                         <div className="rounded-md space-y-4 mb-6">
                             <StyledTextInput 
                                 label={t('email')}
