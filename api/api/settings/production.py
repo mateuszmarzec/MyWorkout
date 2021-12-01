@@ -8,8 +8,6 @@ from api.settings.base import *
 
 DEBUG = False
 
-BASE_URL = "https://mateuszmarzec.site"
-
 STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 

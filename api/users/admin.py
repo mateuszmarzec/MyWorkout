@@ -10,6 +10,8 @@ from django.http import HttpRequest
 
 from users.models import Email
 from users.models import Group as UserGroup
+from allauth.account.models import EmailAddress
+from rest_framework.authtoken.models import Token
 from users.models import User
 
 
@@ -23,9 +25,15 @@ def send_activation_email(
         )
 
 
+class EmailAddressInline(admin.TabularInline):
+    model = EmailAddress
+    extra = 0
+
+
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     actions: list = [send_activation_email]
+    inlines = (EmailAddressInline,)
     list_display: list = [
         "email",
         "first_name",
@@ -79,3 +87,5 @@ class EmailAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(Group)
+# admin.site.unregister(Token)
+admin.site.unregister(EmailAddress)

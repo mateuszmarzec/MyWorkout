@@ -1,15 +1,21 @@
-from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView
+from django.urls import path, include
 
-from users.views import CurrentUserView, TokenObtainView, RegisterView, ActivationView, ValidateEmailView
+from users.views import (
+    RegisterView,
+    ValidateEmailView,
+    FacebookLogin,
+    GoogleLogin
+)
 
 urlpatterns = [
-    path("token/obtain/", view=TokenObtainView.as_view(), name="obtain-token"),
+    path('', include('dj_rest_auth.urls')),
+    path('registration/', view=RegisterView.as_view(), name="register-view"),
     path(
-        "token/refresh/", view=TokenRefreshView.as_view(), name="refresh-token"
+        "validate-email/<email>",
+        view=ValidateEmailView.as_view(),
+        name="validate-email",
     ),
-    path("current-user/", view=CurrentUserView.as_view(), name="current-user"),
-    path('register/', view=RegisterView.as_view(), name='register'),
-    path('activate/', view=ActivationView.as_view(), name='activate'),
-    path('validate-email/<email>', view=ValidateEmailView.as_view(), name='validate-email'),
+    path('social/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    path('social/google/', GoogleLogin.as_view(), name='google_login'),
+    path('account/', include('allauth.urls')),
 ]

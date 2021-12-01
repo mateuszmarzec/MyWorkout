@@ -1,5 +1,5 @@
 export default {
     email: '',
-    password: '',
-    passwordConfirmation: ''
+    password1: '',
+    password2: ''
 }

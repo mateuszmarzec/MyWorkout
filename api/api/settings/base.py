@@ -27,7 +27,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "secret_key")
 
 ALLOWED_HOSTS = ["api"]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,7 +36,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     "rest_framework",
+    "dj_rest_auth",
+    "allauth",
+    "allauth.account",
+    "dj_rest_auth.registration",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.facebook",
     "workouts",
     "users",
 ]
@@ -72,7 +79,7 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "dj_rest_auth.utils.JWTCookieAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend"
@@ -80,11 +87,52 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 6,
 }
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(hours=12),
-    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=30),
+# AUTH
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+    'facebook': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
 }
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(seconds=30),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=30),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
+}
+
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'users.serializers.TokenObtainSerializer',
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
+}
+
+REST_USE_JWT = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+SITE_ID = 1
+
+###
+ 
 WSGI_APPLICATION = "api.wsgi.application"
 
 

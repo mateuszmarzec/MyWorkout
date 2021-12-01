@@ -1,7 +1,7 @@
 import { tokenizeAxios, axios } from './axios';
 
 
-export class AuthApiError extends Error {  
+export class AuthError extends Error {  
     constructor(message) {
         super(message)
   }
@@ -15,28 +15,31 @@ export class CredentialsError extends Error {
 
 
 class AuthService {
-    async login(email, password) {
+    baseLogin = async(endpoint, data) => {
         let response
         try {
-            response = await axios.post('/token/obtain/', {email, password})
+            response = await axios.post(endpoint, data)
         }
         catch(error) {
             let responseError = error.response
             if (responseError.status == 401) {
                 throw new CredentialsError(responseError.data.detail)
             }
-            throw new AuthApiError(responseError)
+            throw new AuthError(responseError)
         }
-        if (!(response.data && response.data.access)){
-            throw new AuthApiError("Something go wrong!")
+        if (!(response.data && response.data.accessToken)){
+            throw new AuthError("Something go wrong!")
         }
-        localStorage.setItem('accessToken', response.data.access);
-        localStorage.setItem('refreshToken', response.data.refresh);
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
         return response.data
+    }
+    login = async(data) => {
+        return await this.baseLogin('/login/', data)
     } 
 
     async register(payload) {
-        const response = await axios.post('/register/', { ...payload });
+        const response = await axios.post('/registration/', { ...payload });
         return response.data;
     }
 
@@ -56,9 +59,18 @@ class AuthService {
     }
 
     async getCurrentUser() {
-        const response = await tokenizeAxios.get('/current-user/');
+        const response = await tokenizeAxios.get('/user/');
         return response.data;
     }
+
+    googleLogin = async(accesstoken) => {
+        return await this.baseLogin(
+            "/social/google/",
+            {
+                access_token: accesstoken,
+            }
+            )
+    };
 }
 
 export default new AuthService()
