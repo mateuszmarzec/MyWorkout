@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import authService from '../services/auth.service'
 import { setIsLoggedIn, setUser } from './appSlice'
 import Router from 'next/router';
 
@@ -11,12 +10,12 @@ const initialState = {
 
 export const login = createAsyncThunk(
     'auth/login',
-    async ({email, password},{ getState, requestId, dispatch }) => {
+    async ({data, loginFunction}, { getState, requestId, dispatch }) => {
         const { currentRequestId, loading } = getState().auth
         if (loading !== 'pending' || requestId !== currentRequestId) {
             return
         }
-        const user = await authService.login(email, password)
+        const user = await loginFunction(data)
         dispatch(setUser(user.user))
         dispatch(setIsLoggedIn(true))
         Router.push('/')

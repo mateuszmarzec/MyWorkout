@@ -4,10 +4,9 @@ from rest_framework.serializers import (
     EmailField,
     ModelSerializer,
     Serializer,
-    ValidationError,
 )
 from rest_framework.validators import UniqueValidator
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from dj_rest_auth.serializers import LoginSerializer
 
 User = get_user_model()
 
@@ -24,28 +23,10 @@ class UserSerializer(ModelSerializer):
         )
 
 
-class TokenObtainSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs: dict) -> dict:
-        data: dict = super().validate(attrs)
-        user: dict = UserSerializer(self.user).data
-        data.update(user=user)
-        return data
-
-
-class CustomerSerializer(Serializer):
-    email = EmailField(
-        allow_blank=False,
-        validators=[UniqueValidator(queryset=User.objects.all())],
-    )
-    password = CharField(allow_blank=False, min_length=9)
-    password_confirmation = CharField(allow_blank=False, min_length=9)
-
-    def validate(self, attrs: dict) -> dict:
-        data: dict = super().validate(attrs)
-        if data["password"] != data["password_confirmation"]:
-            raise ValidationError("Passwords don't match")
-
-        return data
+class TokenObtainSerializer(LoginSerializer):
+    def validate(self, attrs: dict):
+        attrs = super().validate(attrs)
+        return attrs
 
 
 class ActivationSerializer(Serializer):
@@ -54,4 +35,7 @@ class ActivationSerializer(Serializer):
 
 
 class ValidateEmailSerializer(Serializer):
-    email = EmailField(allow_blank=False, validators=[UniqueValidator(queryset=User.objects.all())])
+    email = EmailField(
+        allow_blank=False,
+        validators=[UniqueValidator(queryset=User.objects.all())],
+    )

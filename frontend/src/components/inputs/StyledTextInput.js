@@ -3,7 +3,7 @@ import { capitalize } from '../../utils/extraFunctions';
 import { useField } from 'formik';
 
 
-function StyledTextInput({...props}) {
+function StyledTextInput({errors, ...props}) {
     const [field, meta] = useField(props);
 
     return (
@@ -14,6 +14,7 @@ function StyledTextInput({...props}) {
                 {...field}
             />
             {meta.touched && !!meta.error && <p className="text-red-700 font-normal text-sm pl-2">{capitalize(meta.error)}</p>}
+            {meta.touched && !!errors && <p className="text-red-700 font-normal text-sm pl-2">{errors.join(" ")}</p>}
         </div>
     )
 }

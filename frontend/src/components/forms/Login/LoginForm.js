@@ -9,6 +9,7 @@ import BaseButton from '../../buttons/BaseButton';
 import Error from '../../alerts/Error';
 import validationSchema from './validationSchema';
 import initialValues from './initialValues';
+import authService from '../../../services/auth.service';
 
 
 const LoginForm = () => {
@@ -17,7 +18,7 @@ const LoginForm = () => {
     const { t } = useTranslation('login')
 
     const handleLogin = (data, {setSubmitting}) => {
-        dispatch(login(data))
+        dispatch(login({data, loginFunction: authService.login}))
         setSubmitting(false)
     }
 
@@ -34,7 +35,7 @@ const LoginForm = () => {
                         <div className="rounded-md space-y-4 mb-6">
                             <StyledTextInput 
                                 id="email"
-                                name="password"
+                                name="email"
                                 type="email"
                                 autoComplete="email"
                                 required
