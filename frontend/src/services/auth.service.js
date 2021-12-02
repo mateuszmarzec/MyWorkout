@@ -71,6 +71,14 @@ class AuthService {
             }
             )
     };
+    facebookLogin = async(accesstoken) => {
+        return await this.baseLogin(
+            "/social/facebook/",
+            {
+                access_token: accesstoken,
+            }
+            )
+    };
 }
 
 export default new AuthService()

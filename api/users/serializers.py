@@ -1,3 +1,4 @@
+from dj_rest_auth.serializers import LoginSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.serializers import (
     CharField,
@@ -6,7 +7,6 @@ from rest_framework.serializers import (
     Serializer,
 )
 from rest_framework.validators import UniqueValidator
-from dj_rest_auth.serializers import LoginSerializer
 
 User = get_user_model()
 

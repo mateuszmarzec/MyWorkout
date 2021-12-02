@@ -4,5 +4,6 @@
     "password": "Hasło",
     "passwordConfirm": "Potwierdz hasło",
     "success": "Konto założone! Wysłaliśmy email z linkiem aktywacyjnym",
-    "error": "Wystąpił niespodziewany błąd!"
+    "error": "Wystąpił niespodziewany błąd!",
+    "or": "Lub"
 }

@@ -1,21 +1,17 @@
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import RegisterView as BaseRegisterView
+from dj_rest_auth.registration.views import SocialLoginView
+from dj_rest_auth.utils import jwt_encode
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
-from dj_rest_auth.registration. views import RegisterView as BaseRegisterView
-from dj_rest_auth.utils import jwt_encode
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
-from dj_rest_auth.registration.views import SocialLoginView
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from dj_rest_auth.registration.views import SocialLoginView
-from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-from django.views.decorators.csrf import csrf_exempt
 
-
-from users.serializers import (
-    ValidateEmailSerializer,
-)
+from users.serializers import ValidateEmailSerializer
 
 User = get_user_model()
 
@@ -41,7 +37,7 @@ class RegisterView(BaseRegisterView):
 
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
-    
+
 
 class GoogleLogin(SocialLoginView):
     client_class = OAuth2Client
@@ -54,7 +50,7 @@ def google_token(request):
     if "code" not in request.body.decode():
         from rest_framework_simplejwt.settings import api_settings as jwt_settings
         from rest_framework_simplejwt.views import TokenRefreshView
-        
+
         class RefreshAuth(TokenRefreshView):
             # By default, Nuxt auth accept and expect postfix "_token"
             # while simple_jwt library doesnt accept nor expect that postfix
@@ -63,8 +59,8 @@ def google_token(request):
                 request.data["refresh"] = request.data.get("refresh_token")
                 request.data._mutable = False
                 response = super().post(request, *args, **kwargs)
-                response.data['refresh_token'] = response.data['refresh']
-                response.data['access_token'] = response.data['access']
+                response.data["refresh_token"] = response.data["refresh"]
+                response.data["access_token"] = response.data["access"]
                 return response
 
         return RefreshAuth.as_view()(request)
