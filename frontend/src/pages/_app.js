@@ -6,6 +6,11 @@ import nextI18nextConfig from '../../next-i18next.config';
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.css'
 
+// To make FontAwesome CSS working
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
+
 function App({ Component, pageProps }) {
   return <Provider store={store}>
     <Layout>

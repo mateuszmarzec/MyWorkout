@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import * as yup from 'yup';
 import { Formik } from 'formik';
 import { login, selectAuth } from '../../../features/authSlice';
 import { useTranslation } from 'next-i18next';

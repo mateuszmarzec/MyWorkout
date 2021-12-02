@@ -1,21 +1,16 @@
-from django.urls import path, include
+from django.urls import include, path
 
-from users.views import (
-    RegisterView,
-    ValidateEmailView,
-    FacebookLogin,
-    GoogleLogin
-)
+from users.views import FacebookLogin, GoogleLogin, RegisterView, ValidateEmailView
 
 urlpatterns = [
-    path('', include('dj_rest_auth.urls')),
-    path('registration/', view=RegisterView.as_view(), name="register-view"),
+    path("", include("dj_rest_auth.urls")),
+    path("registration/", view=RegisterView.as_view(), name="register-view"),
     path(
         "validate-email/<email>",
         view=ValidateEmailView.as_view(),
         name="validate-email",
     ),
-    path('social/facebook/', FacebookLogin.as_view(), name='fb_login'),
-    path('social/google/', GoogleLogin.as_view(), name='google_login'),
-    path('account/', include('allauth.urls')),
+    path("social/facebook/", FacebookLogin.as_view(), name="fb_login"),
+    path("social/google/", GoogleLogin.as_view(), name="google_login"),
+    path("account/", include("allauth.urls")),
 ]

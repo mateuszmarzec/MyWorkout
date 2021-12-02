@@ -1,5 +1,6 @@
 from typing import Tuple
 
+from allauth.account.models import EmailAddress
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin, display
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
@@ -7,11 +8,10 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from django.db.models import QuerySet
 from django.http import HttpRequest
+from rest_framework.authtoken.models import Token
 
 from users.models import Email
 from users.models import Group as UserGroup
-from allauth.account.models import EmailAddress
-from rest_framework.authtoken.models import Token
 from users.models import User
 
 

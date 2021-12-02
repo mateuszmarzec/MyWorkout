@@ -90,40 +90,41 @@ REST_FRAMEWORK = {
 # AUTH
 
 SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email",
         ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
     },
-    'facebook': {
-        'SCOPE': [
-            'profile',
-            'email',
+    "facebook": {
+        "SCOPE": [
+            "profile",
+            "email",
         ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+    },
 }
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": datetime.timedelta(seconds=30),
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=30),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
-    'UPDATE_LAST_LOGIN': True,
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": True,
 }
 
 REST_AUTH_SERIALIZERS = {
-    'LOGIN_SERIALIZER': 'users.serializers.TokenObtainSerializer',
-    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
+    "LOGIN_SERIALIZER": "users.serializers.TokenObtainSerializer",
+    "USER_DETAILS_SERIALIZER": "users.serializers.UserSerializer",
 }
 
 REST_USE_JWT = True
+REST_SESSION_LOGIN = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -132,7 +133,7 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 SITE_ID = 1
 
 ###
- 
+
 WSGI_APPLICATION = "api.wsgi.application"
 
 
