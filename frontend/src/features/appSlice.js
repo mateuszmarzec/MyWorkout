@@ -17,6 +17,7 @@ const appSlice = createSlice({
             state.user = action.payload
         },
         logout: (state) => {
+            console.log("SEIM")
             authService.logout()
             state.user = null
             state.isLoggedIn = false

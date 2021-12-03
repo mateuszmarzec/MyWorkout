@@ -8,6 +8,8 @@ services:
             args: 
                 SECRET_KEY: ${API_SECRET_KEY}
                 DATABASE_URL: ${API_DATABASE_URL}
+                EMAL_HOST_USER: ${API_EMAL_HOST_USER}
+                EMAL_HOST_PASSWORD: ${API_EMAL_HOST_PASSWORD}
         env_file: 
             - api/env/production.env
         volumes:
@@ -21,6 +23,8 @@ services:
             target: ${FRONTEND_TARGET}
             args: 
                 PORT: ${FRONTEND_PORT}
+                NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${FRONTEND_NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+                NEXT_PUBLIC_FACEBOOK_APP_ID: ${FRONTEND_NEXT_PUBLIC_FACEBOOK_APP_ID}
         env_file: 
             - frontend/env/production.env
         volumes:

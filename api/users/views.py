@@ -10,6 +10,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
+from allauth.account.utils import complete_signup
+from allauth.account import app_settings as allauth_settings
+from django.urls import NoReverseMatch
 
 from users.serializers import ValidateEmailSerializer
 
@@ -32,6 +35,14 @@ class RegisterView(BaseRegisterView):
     def perform_create(self, serializer: Serializer):
         user = serializer.save(self.request)
         self.access_token, self.refresh_token = jwt_encode(user)
+        try:
+            complete_signup(
+                self.request._request, user,
+                allauth_settings.EMAIL_VERIFICATION,
+                None,
+            )
+        except NoReverseMatch:
+            pass
         return user
 
 

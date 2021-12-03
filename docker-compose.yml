@@ -6,8 +6,8 @@ services:
             context: ./api
             target: ${API_TARGET}
             args: 
-                - PORT=${API_PORT}
-                - SECRET_KEY=${API_SECRET_KEY}
+                PORT: ${API_PORT}
+                SECRET_KEY: ${API_SECRET_KEY}
         env_file: 
             - api/env/local.env
         volumes:
@@ -20,7 +20,7 @@ services:
             context: ./frontend
             target: ${FRONTEND_TARGET}
             args: 
-                - PORT=${FRONTEND_PORT}
+                PORT: ${FRONTEND_PORT}
         env_file: 
             - frontend/env/local.env
         volumes:
@@ -34,7 +34,7 @@ services:
             context: ./nginx
             target: ${NGINX_TARGET}
         ports:
-            - ${NGINX_PORT}:${NGINX_PORT}
+            - 8000:${NGINX_PORT}
         env_file: 
             - nginx/env/local.env
         volumes:

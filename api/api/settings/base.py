@@ -111,7 +111,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(seconds=30),
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=30),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
@@ -131,6 +131,8 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 SITE_ID = 1
+
+ACCOUNT_ADAPTER = "users.adapters.AccountAdapter"
 
 ###
 
@@ -175,3 +177,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+EMAIL_ACTIVATION_URL = "/activate/"

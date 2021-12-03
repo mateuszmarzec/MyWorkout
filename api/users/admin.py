@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from allauth.account.models import EmailAddress
+from allauth.account.models import EmailAddress, EmailConfirmation
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin, display
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
@@ -77,6 +77,10 @@ class UserAdmin(BaseUserAdmin):
 class GroupAdmin(BaseGroupAdmin):
     pass
 
+
+@admin.register(EmailConfirmation)
+class EmailConfirmationAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Email)
 class EmailAdmin(admin.ModelAdmin):

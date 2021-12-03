@@ -48,8 +48,8 @@ class AuthService {
         return response.data;
     }
 
-    async activate(uidb64, token) {
-        const response = await axios.post('/activate/', { uidb64, token });
+    async confirmEmail(key) {
+        const response = await axios.post('/registration/verify-email/', {key});
         return response.data;
     }
 
