@@ -6,7 +6,7 @@ module.exports = withGoogleFonts({
   i18n,
   googleFonts: {
     fonts: [
-      "https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800&display=optional",
+      "https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800&display=swap",
     ],
   }
 })
