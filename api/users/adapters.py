@@ -1,6 +1,5 @@
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.account.models import EmailConfirmation
-from allauth.utils import build_absolute_uri
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 from users.utils import get_email_confirmation_url

@@ -1,5 +1,6 @@
 from django.conf import settings
 from allauth.account.models import EmailConfirmation
+from allauth.utils import build_absolute_uri
 
 
 def get_email_confirmation_url(request, emailconfirmation: EmailConfirmation):
