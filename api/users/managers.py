@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.contrib.auth.base_user import BaseUserManager
+from allauth.account.models import EmailAddress
 
 
 class UserManager(BaseUserManager):
@@ -15,6 +16,8 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
+        EmailAddress.objects.create(email=email, user=user, primary=True)
         return user
 
     def create_user(

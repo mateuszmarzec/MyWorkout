@@ -13,6 +13,9 @@ from rest_framework.authtoken.models import Token
 from users.models import Email
 from users.models import Group as UserGroup
 from users.models import User
+from django.contrib.sites.shortcuts import get_current_site
+from django.conf import settings
+from users.utils import get_email_confirmation_url
 
 
 @display(description="Send activation email")
@@ -20,9 +23,17 @@ def send_activation_email(
     modeladmin: ModelAdmin, request: HttpRequest, queryset: QuerySet
 ) -> None:
     for user in queryset:
-        user.send_email(
-            email=Email.objects.get(code="activate"), context={"elo": "elo"}
-        )
+        emails: QuerySet = EmailAddress.objects.filter(user=user, primary=True)
+        for email in emails:
+            emailconfirmation = EmailConfirmation.create(email_address=email)
+            user.send_email(
+                email=Email.objects.get(code="confirmation"), 
+                context_data = {
+                    "user": user,
+                    "activate_url": get_email_confirmation_url(emailconfirmation),
+                    "current_site": get_current_site(request),
+                    "key": emailconfirmation.key,
+                })
 
 
 class EmailAddressInline(admin.TabularInline):
@@ -77,10 +88,6 @@ class UserAdmin(BaseUserAdmin):
 class GroupAdmin(BaseGroupAdmin):
     pass
 
-
-@admin.register(EmailConfirmation)
-class EmailConfirmationAdmin(admin.ModelAdmin):
-    pass
 
 @admin.register(Email)
 class EmailAdmin(admin.ModelAdmin):
