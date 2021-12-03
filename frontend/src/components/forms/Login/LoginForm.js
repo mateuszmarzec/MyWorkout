@@ -9,6 +9,7 @@ import Error from '../../alerts/Error';
 import validationSchema from './validationSchema';
 import initialValues from './initialValues';
 import authService from '../../../services/auth.service';
+import Link from 'next/link';
 
 
 const LoginForm = () => {
@@ -22,7 +23,7 @@ const LoginForm = () => {
     }
 
     return (
-        <div className="min-h-full flex items-center justify-center py-12">
+        <div className="min-h-full flex items-center justify-center">
             <div className="md:max-w-lg w-full space-y-8">
                 <div>
                     <h2 className="text-primary mt-6 text-center text-3xl font-bold">{t('sign_in')}</h2>
@@ -50,15 +51,15 @@ const LoginForm = () => {
                             />
                         </div>
                         <div className="flex items-center justify-between mb-2">
-                            <div className="text-sm">
-                                <a href="#" className="font-normal">
+                            <div className="text-sm font-normal">
+                                <Link href="#">
                                 {t('forgot_password')}
-                                </a>
+                                </Link>
                             </div>
-                            <div className="text-sm">
-                                <a href="#" className="font-normal">
+                            <div className="text-sm font-normal">
+                                <Link href="/">
                                 {t('dont_have_account')}
-                                </a>
+                                </Link>
                             </div>
                         </div>
 

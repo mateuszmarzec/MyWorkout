@@ -21,6 +21,8 @@ const RegisterForm = () => {
     const { t } = useTranslation('register')
 
     const handleRegister = async (data, {setSubmitting}) => {
+        setRegisterErrors(false)
+        setRegisterSuccess(false)
         try {
             await authService.register(data)
             setRegisterSuccess(true)
@@ -32,8 +34,8 @@ const RegisterForm = () => {
     }
 
     return (
-        <div className="min-h-full flex items-center justify-center py-12">
-            <div className="md:max-w-lg w-full space-y-8">
+        <div className="min-h-full flex items-center justify-end">
+            <div className="md:max-w-xl w-full space-y-8">
                 <div>
                     <h2 className="text-primary mt-6 text-center text-3xl font-bold">{t('sign_up')}</h2>
                 </div>

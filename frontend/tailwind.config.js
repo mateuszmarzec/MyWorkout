@@ -65,10 +65,11 @@ module.exports = {
         }
       },
       maxWidth: {
-        'XlMax': '1440px',
+        'XlMax': '1340px',
       },
       boxShadow: {
         'input': '0 4px 0 rgba(91,105,135,0.2)',
+        'navbar': 'rgb(3 27 78 / 10%) 0 2px 4px'
        }
     },
   },
