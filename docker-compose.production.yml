@@ -9,7 +9,7 @@ services:
                 SECRET_KEY: ${API_SECRET_KEY}
                 DATABASE_URL: ${API_DATABASE_URL}
                 EMAIL_HOST_USER: ${API_EMAIL_HOST_USER}
-                EMAIL_HOST_PASSWORD: ${API_EMAL_HOST_PASSWORD}
+                EMAIL_HOST_PASSWORD: ${API_EMAIL_HOST_PASSWORD}
         env_file: 
             - api/env/production.env
         volumes:
