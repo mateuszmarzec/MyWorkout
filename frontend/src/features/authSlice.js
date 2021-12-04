@@ -18,7 +18,8 @@ export const login = createAsyncThunk(
         const user = await loginFunction(data)
         dispatch(setUser(user.user))
         dispatch(setIsLoggedIn(true))
-        Router.push('/')
+        console.log("elo")
+        Router.push('/workouts')
     }
 )
 

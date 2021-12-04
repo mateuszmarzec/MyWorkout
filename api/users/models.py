@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.db import models
 from django.db.models import QuerySet
 from django.template import Context, Template
+from allauth.socialaccount.models import SocialAccount
 
 from users.managers import UserManager
 from workouts import models as workout_models
@@ -63,6 +64,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         queryset = self.workouts.filter(workout_plan__isnull=False)
         queryset.model = workout_models.WorkoutActivity
         return queryset
+
+    @property
+    def from_social(self) -> bool:
+        social_accounts = SocialAccount.objects.filter(user=self)
+        return bool(social_accounts)
 
 
 class Group(BaseGroup):

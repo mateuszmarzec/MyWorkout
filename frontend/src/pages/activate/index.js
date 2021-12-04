@@ -22,7 +22,7 @@ function Activate() {
                 setError(t("invalidKey"))
             })
         }
-        else{
+        if (key === ""){
             router.push("/")
         }
     }, [])

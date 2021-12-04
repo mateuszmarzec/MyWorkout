@@ -8,6 +8,8 @@ services:
             args: 
                 PORT: ${API_PORT}
                 SECRET_KEY: ${API_SECRET_KEY}
+                NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${FRONTEND_NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+                NEXT_PUBLIC_FACEBOOK_APP_ID: ${FRONTEND_NEXT_PUBLIC_FACEBOOK_APP_ID}
         env_file: 
             - api/env/local.env
         volumes:
