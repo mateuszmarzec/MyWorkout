@@ -51,7 +51,6 @@ class FacebookLogin(SocialLoginView):
 
 
 class GoogleLogin(SocialLoginView):
-    client_class = OAuth2Client
     adapter_class = GoogleOAuth2Adapter
 
 
