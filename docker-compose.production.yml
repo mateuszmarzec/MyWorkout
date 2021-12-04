@@ -30,7 +30,7 @@ services:
         volumes:
             - ./frontend/src:/app/src
         expose:
-            - ${API_PORT}
+            - ${FRONTEND_PORT}
         depends_on:
             - api
     nginx:
