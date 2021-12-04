@@ -10,7 +10,7 @@ from users.models import User, Email
 class AccountAdapter(DefaultAccountAdapter):
     def send_confirmation_mail(self, request, emailconfirmation: EmailConfirmation, signup: bool):
         current_site = get_current_site(request)
-        activate_url = get_email_confirmation_url(request, emailconfirmation)
+        activate_url = get_email_confirmation_url(current_site.domain, emailconfirmation)
         user: User = emailconfirmation.email_address.user
         context_data = {
             "user": emailconfirmation.email_address.user,
