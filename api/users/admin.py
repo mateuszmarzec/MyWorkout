@@ -26,12 +26,13 @@ def send_activation_email(
         emails: QuerySet = EmailAddress.objects.filter(user=user, primary=True)
         for email in emails:
             emailconfirmation = EmailConfirmation.create(email_address=email)
+            current_site = get_current_site(request)
             user.send_email(
                 email=Email.objects.get(code="confirmation"), 
                 context_data = {
                     "user": user,
-                    "activate_url": get_email_confirmation_url(emailconfirmation),
-                    "current_site": get_current_site(request),
+                    "activate_url": get_email_confirmation_url(current_site.domain, emailconfirmation),
+                    "current_site": current_site,
                     "key": emailconfirmation.key,
                 })
 
