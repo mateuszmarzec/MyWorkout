@@ -12,7 +12,7 @@ function Layout({children}) {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        localStorage.getItem('accessToken') && (dispatch(setIsLoggedIn(true)), dispatch(setCurrentUser()))
+        localStorage.getItem('accessToken') ? dispatch(setCurrentUser()): dispatch(setIsLoggedIn(false))
     }, []) 
 
     return (

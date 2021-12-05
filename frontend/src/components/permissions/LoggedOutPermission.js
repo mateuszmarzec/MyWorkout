@@ -7,7 +7,7 @@ function LoggedOutPermission({children}) {
 
     return (
         <>
-            {!isLoggedIn && children}
+            {(isLoggedIn === false) && children}
         </>
     )
 }

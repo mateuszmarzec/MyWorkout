@@ -10,7 +10,7 @@ function PermissionWrapper({ children}) {
     
 
     useEffect(() => {
-        !isLoggedIn && replace(`login/?next=${pathname}`)
+        (isLoggedIn === false) && replace(`login/?next=${pathname}`)
     }, [isLoggedIn])
 
     return (

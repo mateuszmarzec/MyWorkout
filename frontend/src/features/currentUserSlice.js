@@ -15,7 +15,14 @@ export const setCurrentUser = createAsyncThunk(
         if (loading !== 'pending' || requestId !== currentRequestId) {
             return
         }
-        const user = await authService.getCurrentUser()
+        let user
+        try{
+            user = await authService.getCurrentUser()
+        }
+        catch(error){
+            dispatch(setIsLoggedIn(false))
+            throw error
+        }
         dispatch(setUser(user))
         dispatch(setIsLoggedIn(true))
 

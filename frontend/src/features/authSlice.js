@@ -15,10 +15,16 @@ export const login = createAsyncThunk(
         if (loading !== 'pending' || requestId !== currentRequestId) {
             return
         }
-        const user = await loginFunction(data)
-        dispatch(setUser(user.user))
+        let user
+        try{
+            user = await loginFunction(data)
+        }
+        catch(error) {
+            dispatch(setIsLoggedIn(false))
+            throw error
+        }
         dispatch(setIsLoggedIn(true))
-        console.log("elo")
+        dispatch(setUser(user.user))
         Router.push('/workouts')
     }
 )

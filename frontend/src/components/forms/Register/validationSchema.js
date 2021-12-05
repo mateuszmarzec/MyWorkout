@@ -10,6 +10,6 @@ yup.object().shape({
             value && authService.validateEmail(value).then(() => {return true}).catch(() => {return false})
         )
     ),
-    password1: yup.string().required().test('len', 'Must be more than 8 characters', val => val.length > 8),
+    password1: yup.string().required().test('len', 'Must be more than 8 characters', val => val && val.length > 8),
     password2: yup.string().required().oneOf([yup.ref('password1'), null], 'Must match'),
 })
