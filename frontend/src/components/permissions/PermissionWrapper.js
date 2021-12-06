@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
 import { useRouter } from "next/router"
-import { useSelector } from 'react-redux';
-import { selectApp } from '../../features/appSlice';
+import authService from '../../services/auth.service'
 
 
 function PermissionWrapper({ children}) {
     const { replace, pathname } = useRouter()
-    const isLoggedIn = useSelector(selectApp).isLoggedIn;
-    
+    const { user, isValidating } = authService.useUser()
 
     useEffect(() => {
-        (isLoggedIn === false) && replace(`login/?next=${pathname}`)
-    }, [isLoggedIn])
+        if (!(user || isValidating)) {
+          replace(`login/?next=${pathname}`)
+        }
+    }, [user, isValidating])
 
     return (
         <>
-            {isLoggedIn && children}
+            {user && children}
         </>
     )
 }

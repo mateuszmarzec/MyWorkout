@@ -1,8 +1,7 @@
 import React from 'react'
-import PermissionWrapper from '../../components/permissions/PermissionWrapper';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import authService from '../../services/auth.service';
+import PermissionWrapper from '../../components/permissions/PermissionWrapper';
 
 function Workouts() {
     const { t } = useTranslation('workout')
@@ -14,7 +13,7 @@ function Workouts() {
     )
 }
 
-export async function getServerSideProps({ locale, req }) {
+export async function getStaticProps({ locale }) {
     return { props: { ...await serverSideTranslations(locale) } }
 }
 

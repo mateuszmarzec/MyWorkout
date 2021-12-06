@@ -1,13 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectApp } from '../../features/appSlice'
+import authService from '../../services/auth.service';
 
 function LoggedOutPermission({children}) {
-    const isLoggedIn = useSelector(selectApp).isLoggedIn;
+    const { user } = authService.useUser()
 
     return (
         <>
-            {(isLoggedIn === false) && children}
+            {!user && children}
         </>
     )
 }

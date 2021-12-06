@@ -1,4 +1,5 @@
 import { tokenizeAxios, axios } from './axios';
+import useSWR from 'swr'
 
 
 export class AuthError extends Error {  
@@ -13,7 +14,7 @@ export class CredentialsError extends Error {
   }
 }
 
-
+const fetcher = url => tokenizeAxios.get(url).then(res => res.data)
 class AuthService {
     baseLogin = async(endpoint, data) => {
         let response
@@ -31,7 +32,6 @@ class AuthService {
             throw new AuthError("Something go wrong!")
         }
         localStorage.setItem('accessToken', response.data.accessToken);
-        localStorage.setItem('refreshToken', response.data.refreshToken);
         return response.data
     }
     login = async(data) => {
@@ -53,14 +53,18 @@ class AuthService {
         return response.data;
     }
 
-    logout() {
+    async logout() {
+        await axios.post('/logout/');
         localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
     }
 
-    async getCurrentUser() {
-        const response = await tokenizeAxios.get('/user/');
-        return response.data;
+    useUser = () => {
+        const { data, error, isValidating } = useSWR(this.getAccessToken()? '/user/': null, fetcher, {revalidateOnFocus: false})
+        return {
+            user: data,
+            isValidating: isValidating,
+            isError: error
+        }
     }
 
     googleLogin = async(accesstoken) => {
@@ -79,6 +83,11 @@ class AuthService {
             }
             )
     };
+    getAccessToken = () => {
+        if (process.browser) {
+            return localStorage.getItem('accessToken')
+        }
+    }
 }
 
 export default new AuthService()

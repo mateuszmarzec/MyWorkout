@@ -4,5 +4,6 @@
     "password": "Hasło",
     "forgot_password": "Zapomniałeś hasła",
     "dont_have_account": "Nie masz konta? Zarejestruj się",
-    "loginError": "Błąd logowania: "
+    "loginError": "Błąd logowania: ",
+    "or": "Lub"
 }

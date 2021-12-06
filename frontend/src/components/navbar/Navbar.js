@@ -3,13 +3,11 @@ import Item from './Item'
 import Link from 'next/link'
 import LoggedOutPermission from '../permissions/LoggedOutPermission';
 import LoggedInPermission from '../permissions/LoggedInPermission';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'next-i18next';
-import { logout } from '../../features/appSlice';
+import authService from '../../services/auth.service';
 
 function Navbar() {
     const { t } = useTranslation('navigationBar');
-    const dispatch = useDispatch();
 
     return (
         <div className="fixed w-full shadow-navbar bg-white font-normal text-lg">
@@ -17,12 +15,14 @@ function Navbar() {
                 <LoggedOutPermission>
                     <Item><Link href="/login">{t('login')}</Link></Item>
                 </LoggedOutPermission>
+                <Item>
+                    <Link href="/about">{t('about')}</Link>
+                </Item>
                 <LoggedInPermission>
                     <Item><Link href="/workouts">{t('workouts')}</Link></Item>
                     <Item><Link href="/progressions">{t('progressions')}</Link></Item>
-                    <Item onClick={() => dispatch(logout())}><Link href="/login">{t('logout')}</Link></Item>
+                    <Item onClick={async() => {await authService.logout()}}><Link href="/login">{t('logout')}</Link></Item>
                 </LoggedInPermission>
-                <Item></Item>
             </nav>
         </div>
     )

@@ -1,17 +1,25 @@
 import React from 'react'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import authService from '../../../services/auth.service';
-import { useDispatch } from 'react-redux';
-import { login } from '../../../features/authSlice';
 import { faFacebook } from "@fortawesome/free-brands-svg-icons"
 import SocialAuthButton from '../SocialAuthButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
-function FacebookButton() {
-    const dispatch = useDispatch()
+function FacebookButton({setErrors}) {
+    const router = useRouter()
+    const { t } = useTranslation('common')
 
     const handleFacebookResponse = async (response) => {
-        dispatch(login({data: response.accessToken, loginFunction: authService.facebookLogin}))
+        try{
+            await authService.facebookLogin(response.accessToken)
+        }
+        catch(err){
+            setErrors(t('error'))
+            return
+        }
+        router.push(`/${router.query.next || "workouts"}`)
     };
 
     return (

@@ -1,5 +1,6 @@
 import baseAxios from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
+import { removeCookie, setCookie, getCookie } from './cookie.service';
 
 const API_URL = "/api"
 
@@ -26,10 +27,10 @@ instanceTokenizeAxios.interceptors.response.use(
     },
     (error) => {
         const originalRequest = error.config;
-        const refreshToken = localStorage.getItem('refreshToken')
-        if (refreshToken && error.response.status === 401 && !originalRequest._retry){
+        const accessToken = localStorage.getItem('accessToken');
+        if (accessToken && error.response.status === 401 && !originalRequest._retry){
             originalRequest._retry = true;
-            return instanceTokenizeAxios.post(`/token/refresh/`, { refresh: refreshToken }, {_retry: true})
+            return instanceTokenizeAxios.post(`/token/refresh/`, {}, {_retry: true})
             .then((res) => {
               if (res.status === 200) {
                 localStorage.setItem("accessToken", res.data.access);
@@ -38,8 +39,7 @@ instanceTokenizeAxios.interceptors.response.use(
             })
             .catch(error => {
                 if (error.response.status === 401){
-                    localStorage.removeItem('accessToken');
-                    localStorage.removeItem('refreshToken');
+                    localStorage.removeItem('accessToken')
                 }
             });
         }

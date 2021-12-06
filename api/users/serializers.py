@@ -23,17 +23,6 @@ class UserSerializer(ModelSerializer):
         )
 
 
-class TokenObtainSerializer(LoginSerializer):
-    def validate(self, attrs: dict):
-        attrs = super().validate(attrs)
-        return attrs
-
-
-class ActivationSerializer(Serializer):
-    uidb64 = CharField(allow_blank=False)
-    token = CharField(allow_blank=False)
-
-
 class ValidateEmailSerializer(Serializer):
     email = EmailField(
         allow_blank=False,

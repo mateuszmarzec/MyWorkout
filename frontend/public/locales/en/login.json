@@ -4,5 +4,6 @@
     "password": "Password",
     "forgot_password": "Forgot password",
     "dont_have_account": "Don't have an account? Sign Up",
-    "loginError": "Login Error: "
+    "loginError": "Login Error: ",
+    "or": "Or"
 }

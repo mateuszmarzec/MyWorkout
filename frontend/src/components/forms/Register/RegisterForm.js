@@ -9,7 +9,6 @@ import validationSchema from './validationSchema';
 import initialValues from './initialValues';
 import authService from '../../../services/auth.service';
 import Success from '../../alerts/Success';
-import { selectAuth } from '../../../features/authSlice';
 import FacebookButton from '../../buttons/social/FacebookButton';
 import GoogleButton from '../../buttons/social/GoogleButton';
 
@@ -17,7 +16,6 @@ import GoogleButton from '../../buttons/social/GoogleButton';
 const RegisterForm = () => {
     const [registerErrors, setRegisterErrors] = useState(false)
     const [registerSuccess, setRegisterSuccess] = useState(false)
-    const loginError = useSelector(selectAuth).error
     const { t } = useTranslation('register')
 
     const handleRegister = async (data, {setSubmitting}) => {
@@ -35,14 +33,14 @@ const RegisterForm = () => {
 
     return (
         <div className="min-h-full flex items-center justify-end">
-            <div className="md:max-w-xl w-full space-y-8">
+            <div className="md:max-w-xl w-full space-y-4">
                 <div>
                     <h2 className="text-primary mt-6 text-center text-3xl font-bold">{t('sign_up')}</h2>
                 </div>
                 <Formik validationSchema={validationSchema} validateOnChange={false} validateOnBlur={false} onSubmit={handleRegister} initialValues={initialValues}>
                 {({values, touched, errors, handleSubmit, isSubmitting, handleChange}) => (
                     <form className="mt-8" onSubmit={handleSubmit} noValidate>
-                        {(registerErrors || loginError) && <Error>{t('error')}</Error>}
+                        {registerErrors && <Error>{t('error')}</Error>}
                         {registerSuccess && <Success>{t('success')}</Success>}
                         <div className="rounded-md mb-6">
                             <StyledTextInput 
@@ -80,12 +78,12 @@ const RegisterForm = () => {
                     )}
                     </Formik>
                     <span className="flex flex-row my-6 before:flex-1 before:border-b-2 before:m-auto before:mr-[10px] before:ml-20 after:flex-1 after:border-b-2 after:m-auto after:ml-[10px] after:mr-20">{t('or')}</span>
-                        <div className="flex justify-between">
-                            <GoogleButton/>
-                            <FacebookButton />
-                        </div>
+                    <div className="flex justify-between">
+                        <GoogleButton setErrors={setRegisterErrors} />
+                        <FacebookButton  setErrors={setRegisterErrors} />
                     </div>
                 </div>
+            </div>
     );
 }
 

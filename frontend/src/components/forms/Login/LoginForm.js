@@ -1,7 +1,5 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
 import { Formik } from 'formik';
-import { login, selectAuth } from '../../../features/authSlice';
 import { useTranslation } from 'next-i18next';
 import StyledTextInput from '../../inputs/StyledTextInput';
 import BaseButton from '../../buttons/BaseButton';
@@ -10,21 +8,30 @@ import validationSchema from './validationSchema';
 import initialValues from './initialValues';
 import authService from '../../../services/auth.service';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import GoogleButton from '../../buttons/social/GoogleButton';
+import FacebookButton from '../../buttons/social/FacebookButton';
 
 
 const LoginForm = () => {
-    const dispatch = useDispatch();
-    const loginError = useSelector(selectAuth).error;
+    const [loginError, setLoginError] = useState(false)
     const { t } = useTranslation('login')
+    const router = useRouter()
 
-    const handleLogin = (data, {setSubmitting}) => {
-        dispatch(login({data, loginFunction: authService.login}))
+    const handleLogin = async (data, {setSubmitting}) => {
+        try {
+            await authService.login(data)
+        }
+        catch (err) {
+            setLoginError(err)
+        }
         setSubmitting(false)
+        router.push(`/${router.query.next || "workouts"}`)
     }
 
     return (
         <div className="min-h-full flex items-center justify-center">
-            <div className="md:max-w-lg w-full space-y-8">
+            <div className="md:max-w-lg w-full space-y-4">
                 <div>
                     <h2 className="text-primary mt-6 text-center text-3xl font-bold">{t('sign_in')}</h2>
                 </div>
@@ -69,6 +76,11 @@ const LoginForm = () => {
                     </form>
                     )}
                     </Formik>
+                    <span className="flex flex-row my-6 before:flex-1 before:border-b-2 before:m-auto before:mr-[10px] before:ml-20 after:flex-1 after:border-b-2 after:m-auto after:ml-[10px] after:mr-20">{t('or')}</span>
+                    <div className="flex justify-between">
+                        <GoogleButton setErrors={setLoginError}/>
+                        <FacebookButton setErrors={setLoginError} />
+                    </div>
                     </div>
                 </div>
     );
