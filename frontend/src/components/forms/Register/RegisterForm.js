@@ -16,7 +16,7 @@ import GoogleButton from '../../buttons/social/GoogleButton';
 const RegisterForm = () => {
     const [registerErrors, setRegisterErrors] = useState(false)
     const [registerSuccess, setRegisterSuccess] = useState(false)
-    const { t } = useTranslation('register')
+    const { t } = useTranslation(['register', 'common'])
 
     const handleRegister = async (data, {setSubmitting}) => {
         setRegisterErrors(false)
@@ -40,7 +40,7 @@ const RegisterForm = () => {
                 <Formik validationSchema={validationSchema} validateOnChange={false} validateOnBlur={false} onSubmit={handleRegister} initialValues={initialValues}>
                 {({values, touched, errors, handleSubmit, isSubmitting, handleChange}) => (
                     <form className="mt-8" onSubmit={handleSubmit} noValidate>
-                        {registerErrors && <Error>{t('error')}</Error>}
+                        {registerErrors && typeof registerErrors === 'string' && <Error>{t('common:error')}</Error>}
                         {registerSuccess && <Success>{t('success')}</Success>}
                         <div className="rounded-md mb-6">
                             <StyledTextInput 

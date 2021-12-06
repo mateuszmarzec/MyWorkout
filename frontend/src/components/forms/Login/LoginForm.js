@@ -23,7 +23,8 @@ const LoginForm = () => {
             await authService.login(data)
         }
         catch (err) {
-            setLoginError(err)
+            setLoginError(err.message)
+            return
         }
         setSubmitting(false)
         router.push(`/${router.query.next || "workouts"}`)
@@ -59,7 +60,7 @@ const LoginForm = () => {
                         </div>
                         <div className="flex items-center justify-between mb-2">
                             <div className="text-sm font-normal">
-                                <Link href="#">
+                                <Link href="/password-reset">
                                 {t('forgot_password')}
                                 </Link>
                             </div>

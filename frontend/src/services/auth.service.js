@@ -23,8 +23,8 @@ class AuthService {
         }
         catch(error) {
             let responseError = error.response
-            if (responseError.status == 401) {
-                throw new CredentialsError(responseError.data.detail)
+            if (responseError.status === 400) {
+                throw new CredentialsError(responseError.data.nonFieldErrors)
             }
             throw new AuthError(responseError)
         }
@@ -56,6 +56,14 @@ class AuthService {
     async logout() {
         await axios.post('/logout/');
         localStorage.removeItem('accessToken');
+    }
+
+    async passwordReset(data) {
+        return await axios.post('/password/reset/', { ...data});
+    }
+
+    async passwordResetConfirm(data) {
+        return await axios.post('/password/reset/confirm/', { ...data});
     }
 
     useUser = () => {

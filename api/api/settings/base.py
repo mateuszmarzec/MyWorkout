@@ -120,6 +120,7 @@ SIMPLE_JWT = {
 
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "users.serializers.UserSerializer",
+    "PASSWORD_RESET_SERIALIZER": "users.serializers.PasswordResetSerializer"
 }
 
 REST_USE_JWT = True
@@ -180,3 +181,4 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 EMAIL_ACTIVATION_URL = "/activate/"
+PASSWORD_RESET_CONFIRM_URL = "/password-reset-confirm/"

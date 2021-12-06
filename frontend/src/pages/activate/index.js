@@ -19,7 +19,7 @@ function Activate() {
                 setSuccess(true)
             })
             .catch (error => {
-                setError(t("invalidKey"))
+                setError(true)
             })
         }
         if (key === ""){
@@ -29,7 +29,7 @@ function Activate() {
 
     return (
         <div className="flex h-[75vh]">
-            <h1 className="text-6xl text-center m-auto">{error && error || t('success')}</h1>
+            <h1 className="text-6xl text-center m-auto">{(error && t("invalidKey")) || success && t('success')}</h1>
         </div>
     )
 }

@@ -6,5 +6,5 @@ module.exports = {
     react: {
         useSuspense: false
     },
-    ns: ['activate', 'common', 'header', 'login', 'register', 'navigationBar', 'workout'],
+    ns: ['activate', 'common', 'header', 'login', 'register', 'navigationBar', 'workout', 'passwordReset', 'passwordResetConfirm'],
   }

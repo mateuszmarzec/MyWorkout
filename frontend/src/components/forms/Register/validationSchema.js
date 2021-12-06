@@ -11,5 +11,5 @@ yup.object().shape({
         )
     ),
     password1: yup.string().required().test('len', 'Must be more than 8 characters', val => val && val.length > 8),
-    password2: yup.string().required().oneOf([yup.ref('password1'), null], 'Must match'),
+    password2: yup.string().required().oneOf([yup.ref('password1'), null], 'Passwords must match'),
 })
