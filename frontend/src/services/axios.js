@@ -1,6 +1,5 @@
 import baseAxios from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
-import { removeCookie, setCookie, getCookie } from './cookie.service';
 
 const API_URL = "/api"
 

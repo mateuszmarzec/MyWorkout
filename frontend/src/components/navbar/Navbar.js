@@ -6,10 +6,11 @@ import LoggedInPermission from '../permissions/LoggedInPermission';
 import { useTranslation } from 'next-i18next';
 import authService from '../../services/auth.service';
 import { useSWRConfig } from 'swr';
+import { useRouter } from 'next/dist/client/router';
 
 function Navbar() {
     const { t } = useTranslation('navigationBar');
-    const { mutate } = useSWRConfig()
+    const { replace } = useRouter()
 
     return (
         <div className="fixed w-full shadow-navbar bg-white font-normal text-lg">
@@ -23,7 +24,7 @@ function Navbar() {
                 <LoggedInPermission>
                     <Item><Link href="/workouts">{t('workouts')}</Link></Item>
                     <Item><Link href="/progressions">{t('progressions')}</Link></Item>
-                    <Item onClick={async() => {await authService.logout(); mutate('/user/')}}><Link href="/login">{t('logout')}</Link></Item>
+                    <Item onClick={async() => {await authService.logout(); replace("/")}}><Link href="#">{t('logout')}</Link></Item>
                 </LoggedInPermission>
             </nav>
         </div>

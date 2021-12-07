@@ -9,7 +9,6 @@ function PasswordResetConfirm() {
     const { userId, token } = router.query
 
     useEffect(() => {
-        console.log(router.query)
         if (userId && token) {
 
         }
