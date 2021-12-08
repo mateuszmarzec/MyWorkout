@@ -17,9 +17,9 @@ config.autoAddCss = false
 function App({ Component, pageProps }) {
   return <Provider store={store}>
     <Navbar/>
-    <Layout>
-        <Component {...pageProps} />
-    </Layout>
+      <Layout>
+          <Component {...pageProps} />
+      </Layout>
     <Footer/>
   </Provider>
 }
