@@ -10,7 +10,7 @@ function Layout({children}) {
                 {GoogleFonts()}
                 <title>My Workout</title>
             </Head>
-            <div className="pt-[76px]">
+            <div>
                 {children}
             </div>
         </div>

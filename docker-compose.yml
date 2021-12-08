@@ -36,7 +36,7 @@ services:
             context: ./nginx
             target: ${NGINX_TARGET}
         ports:
-            - 8000:${NGINX_PORT}
+            - ${NGINX_PORT}:${NGINX_PORT}
         env_file: 
             - nginx/env/local.env
         volumes:

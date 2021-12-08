@@ -1,4 +1,7 @@
-from dj_rest_auth.serializers import LoginSerializer, PasswordResetSerializer as BasePasswordResetSerializer
+from dj_rest_auth.serializers import LoginSerializer
+from dj_rest_auth.serializers import (
+    PasswordResetSerializer as BasePasswordResetSerializer,
+)
 from django.contrib.auth import get_user_model
 from rest_framework.serializers import (
     CharField,
@@ -7,6 +10,7 @@ from rest_framework.serializers import (
     Serializer,
 )
 from rest_framework.validators import UniqueValidator
+
 from users.forms import PasswordResetForm
 
 User = get_user_model()
@@ -35,4 +39,3 @@ class PasswordResetSerializer(BasePasswordResetSerializer):
     @property
     def password_reset_form_class(self):
         return PasswordResetForm
-

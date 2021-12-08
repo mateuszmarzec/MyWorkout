@@ -5,9 +5,7 @@ DEBUG = True
 ALLOWED_HOSTS.append("localhost")
 INSTALLED_APPS.append("corsheaders")
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000'
-]
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000"]
 
 DATABASES = {
     "default": {
@@ -16,7 +14,7 @@ DATABASES = {
     }
 }
 
-MIDDLEWARE.insert(2, 'corsheaders.middleware.CorsMiddleware')
+MIDDLEWARE.insert(2, "corsheaders.middleware.CorsMiddleware")
 
 # Mailing
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"

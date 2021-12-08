@@ -1,7 +1,7 @@
 from typing import Any
 
-from django.contrib.auth.base_user import BaseUserManager
 from allauth.account.models import EmailAddress
+from django.contrib.auth.base_user import BaseUserManager
 
 
 class UserManager(BaseUserManager):

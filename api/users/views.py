@@ -1,19 +1,19 @@
+from allauth.account import app_settings as allauth_settings
+from allauth.account.utils import complete_signup
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import RegisterView as BaseRegisterView
 from dj_rest_auth.registration.views import SocialLoginView
 from dj_rest_auth.utils import jwt_encode
 from django.contrib.auth import get_user_model
+from django.urls import NoReverseMatch
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
-from allauth.account.utils import complete_signup
-from allauth.account import app_settings as allauth_settings
-from django.urls import NoReverseMatch
-from users.adapters import FacebookAdapter
 
+from users.adapters import FacebookAdapter
 from users.serializers import ValidateEmailSerializer
 
 User = get_user_model()
@@ -36,7 +36,8 @@ class RegisterView(BaseRegisterView):
         user = serializer.save(self.request)
         self.access_token, self.refresh_token = jwt_encode(user)
         complete_signup(
-            self.request._request, user,
+            self.request._request,
+            user,
             allauth_settings.EMAIL_VERIFICATION,
             None,
         )

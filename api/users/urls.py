@@ -1,12 +1,16 @@
+from dj_rest_auth.registration.views import VerifyEmailView
 from django.urls import include, path
 
-from dj_rest_auth.registration.views import VerifyEmailView
 from users.views import FacebookLogin, GoogleLogin, RegisterView, ValidateEmailView
 
 urlpatterns = [
     path("", include("dj_rest_auth.urls")),
     path("registration/", view=RegisterView.as_view(), name="register-view"),
-    path("registration/verify-email/", view=VerifyEmailView.as_view(), name="account_confirm_email"),
+    path(
+        "registration/verify-email/",
+        view=VerifyEmailView.as_view(),
+        name="account_confirm_email",
+    ),
     path(
         "validate-email/<email>",
         view=ValidateEmailView.as_view(),

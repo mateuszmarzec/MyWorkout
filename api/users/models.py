@@ -1,3 +1,4 @@
+from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import Group as BaseGroup
 from django.contrib.auth.models import PermissionsMixin
@@ -5,7 +6,6 @@ from django.core.mail import send_mail
 from django.db import models
 from django.db.models import QuerySet
 from django.template import Context, Template
-from allauth.socialaccount.models import SocialAccount
 
 from users.managers import UserManager
 from workouts import models as workout_models
