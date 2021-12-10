@@ -27,6 +27,7 @@ function FacebookButton({setErrors}) {
         appId={process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}
         fields="name,email,picture"
         callback={handleFacebookResponse}
+        disableMobileRedirect={true}
         render={renderProps => (
             <SocialAuthButton onClick={renderProps.onClick}><FontAwesomeIcon icon={faFacebook} size="2x"/></SocialAuthButton>
         )}
