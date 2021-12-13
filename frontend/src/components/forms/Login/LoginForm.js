@@ -24,9 +24,9 @@ const LoginForm = () => {
         }
         catch (err) {
             setLoginError(err.message)
+            setSubmitting(false)
             return
         }
-        setSubmitting(false)
         router.push(`/${router.query.next || "workouts"}`)
     }
 
@@ -72,7 +72,7 @@ const LoginForm = () => {
                         </div>
 
                         <div>
-                            <BaseButton type="submit" disabled={isSubmitting} text={t('sign_in')} />
+                            <BaseButton type="submit" disabled={isSubmitting} isSubmitting={isSubmitting} text={t('sign_in')} />
                         </div>
                     </form>
                     )}

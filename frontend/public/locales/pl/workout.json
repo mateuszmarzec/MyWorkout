@@ -1,3 +1,10 @@
 {
-  "workout": "Trening"
+  "workout": "Trening",
+  "exercise": "Ćwiczenie",
+  "sets": "Liczba serii",
+  "addExercise": "Dodaj ćwiczenie",
+  "addWorkout": "Dodaj planowany trening",
+  "remove": "Usuń ćwiczenie",
+  "workoutPlans": "Planowane treningi",
+  "exercises": "Ćwiczenia"
 }

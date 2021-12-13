@@ -1,10 +1,8 @@
-from dj_rest_auth.serializers import LoginSerializer
 from dj_rest_auth.serializers import (
     PasswordResetSerializer as BasePasswordResetSerializer,
 )
 from django.contrib.auth import get_user_model
 from rest_framework.serializers import (
-    CharField,
     EmailField,
     ModelSerializer,
     Serializer,

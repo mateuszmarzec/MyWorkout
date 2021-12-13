@@ -23,6 +23,7 @@ urlpatterns = [
         include(
             [
                 path("", include("users.urls")),
+                path("", include("workouts.urls")),
             ]
         ),
     ),

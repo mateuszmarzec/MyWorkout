@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import authService from '../../../services/auth.service';
 import { faFacebook } from "@fortawesome/free-brands-svg-icons"
@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next';
 function FacebookButton({setErrors}) {
     const router = useRouter()
     const { t } = useTranslation('common')
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handleFacebookResponse = async (response) => {
         try{
@@ -17,6 +18,7 @@ function FacebookButton({setErrors}) {
         }
         catch(err){
             setErrors(t('error'))
+            setIsSubmitting(false)
             return
         }
         router.push(`/${router.query.next || "workouts"}`)
@@ -29,7 +31,7 @@ function FacebookButton({setErrors}) {
         callback={handleFacebookResponse}
         disableMobileRedirect={true}
         render={renderProps => (
-            <SocialAuthButton onClick={renderProps.onClick}><FontAwesomeIcon icon={faFacebook} size="2x"/></SocialAuthButton>
+            <SocialAuthButton isSubmitting={isSubmitting} onClick={() => {renderProps.onClick(), setIsSubmitting(true)}}><FontAwesomeIcon icon={faFacebook} size="2x"/></SocialAuthButton>
         )}
     />
     )

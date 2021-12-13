@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import authService from '../../../services/auth.service';
 import { GoogleLogin } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,6 +11,8 @@ import { useTranslation } from 'next-i18next';
 function GoogleButton({setErrors}) {
     const router = useRouter()
     const { t } = useTranslation('common')
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    
 
     const handleGoogleResponse = async (response) => {
         try {
@@ -18,6 +20,7 @@ function GoogleButton({setErrors}) {
         }
         catch (err) {
             setErrors(t('error'))
+            setIsSubmitting(false)
             return
         }
         router.push(`/${router.query.next || "workouts"}`)
@@ -30,7 +33,7 @@ function GoogleButton({setErrors}) {
         onFailure={() => setErrors(t('error'))}
         cookiePolicy={'single_host_origin'}
         render={renderProps => (
-            <SocialAuthButton onClick={renderProps.onClick}><FontAwesomeIcon icon={faGoogle} size="2x"/></SocialAuthButton>
+            <SocialAuthButton isSubmitting={isSubmitting} onClick={() => {renderProps.onClick(), setIsSubmitting(true)}}><FontAwesomeIcon icon={faGoogle} size="2x"/></SocialAuthButton>
         )}
         />
     )

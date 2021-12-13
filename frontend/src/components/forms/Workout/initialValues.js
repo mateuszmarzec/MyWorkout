@@ -1,4 +1,7 @@
+
 export default {
-    email: '',
-    password: '',
+    name: '',
+    exercises: [{
+        exercise: ''
+    }],
 }
