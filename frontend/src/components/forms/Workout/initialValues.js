@@ -1,7 +1,5 @@
 
 export default {
     name: '',
-    exercises: [{
-        exercise: ''
-    }],
+    exercises: [],
 }

@@ -30,7 +30,7 @@ function GoogleButton({setErrors}) {
         <GoogleLogin
         clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
         onSuccess={handleGoogleResponse}
-        onFailure={() => setErrors(t('error'))}
+        onFailure={() => {setErrors(t('error')), setIsSubmitting(false)}}
         cookiePolicy={'single_host_origin'}
         render={renderProps => (
             <SocialAuthButton isSubmitting={isSubmitting} onClick={() => {renderProps.onClick(), setIsSubmitting(true)}}><FontAwesomeIcon icon={faGoogle} size="2x"/></SocialAuthButton>

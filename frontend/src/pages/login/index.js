@@ -5,7 +5,7 @@ import BaseSection from '../../components/sections/BaseSection';
 
 function Index() {
   return (
-    <div className="min-h-[75vh] flex">
+    <div className="min-h-[70vh] flex">
       <div className="m-auto flex-1">
         <BaseSection>
           <LoginForm/>

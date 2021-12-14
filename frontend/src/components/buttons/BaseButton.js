@@ -3,7 +3,7 @@ import React from 'react'
 function BaseButton({text, isSubmitting, ...props}) {
     return (
         <button
-            className="border border-secondary bg-secondary w-full rounded-[8px] px-[32px] py-[12px] text-third hover:bg-third hover:text-secondary text-xl"
+            className="border border-secondary bg-secondary w-full rounded-[.375rem] px-[32px] py-[12px] text-third hover:bg-third hover:text-secondary text-xl"
             {...props}
         >   
             {!isSubmitting? text: 

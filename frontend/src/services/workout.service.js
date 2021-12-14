@@ -10,7 +10,15 @@ class WorkoutService {
             isValidating: isValidating,
             isError: error
         }
-    }  
+    }
+    async getExercises(name) {
+        const response = await tokenizeAxios.get(`/exercises?search=${name}`);
+        return response.data;
+    }
+
+    async addWorkoutPlan(data) {
+        return await tokenizeAxios.post(`/add-workout-plans`, { ...data});
+    }
 }
 
 export default new WorkoutService()

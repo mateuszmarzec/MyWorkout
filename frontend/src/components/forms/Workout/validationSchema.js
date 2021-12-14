@@ -3,9 +3,10 @@ import * as yup from 'yup';
 export default 
     yup.object().shape({
         name: yup.string().required(),
-        exercises: yup.array().of(
+        exercises: yup.array().min(1, "Pick at least 3 exercises").of(
             yup.object().shape({
-                exercise: yup.string().required(),
-        })
-    )
-})
+                label: yup.string().required(),
+                value: yup.string().required(),
+            })
+        )
+    })

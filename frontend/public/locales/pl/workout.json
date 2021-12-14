@@ -6,5 +6,6 @@
   "addWorkout": "Dodaj planowany trening",
   "remove": "Usuń ćwiczenie",
   "workoutPlans": "Planowane treningi",
-  "exercises": "Ćwiczenia"
+  "exercises": "Ćwiczenia",
+  "name": "Nazwa treningu"
 }

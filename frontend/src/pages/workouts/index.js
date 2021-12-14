@@ -8,7 +8,7 @@ import WorkoutPlansTable from '../../components/tables/WorkoutPlans';
 
 function Workouts() {
     const { t } = useTranslation('workout')
-    const { data, isValidating } = workoutService.useWorkoutPlans()
+    const { data } = workoutService.useWorkoutPlans()
 
     return (
         <PermissionWrapper>

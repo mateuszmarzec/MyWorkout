@@ -8,8 +8,6 @@ services:
             args: 
                 PORT: ${API_PORT}
                 SECRET_KEY: ${API_SECRET_KEY}
-                NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${FRONTEND_NEXT_PUBLIC_GOOGLE_CLIENT_ID}
-                NEXT_PUBLIC_FACEBOOK_APP_ID: ${FRONTEND_NEXT_PUBLIC_FACEBOOK_APP_ID}
         env_file: 
             - api/env/local.env
         volumes:
@@ -23,6 +21,8 @@ services:
             target: ${FRONTEND_TARGET}
             args: 
                 PORT: ${FRONTEND_PORT}
+                NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${FRONTEND_NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+                NEXT_PUBLIC_FACEBOOK_APP_ID: ${FRONTEND_NEXT_PUBLIC_FACEBOOK_APP_ID}
         env_file: 
             - frontend/env/local.env
         volumes:
@@ -36,7 +36,7 @@ services:
             context: ./nginx
             target: ${NGINX_TARGET}
         ports:
-            - ${NGINX_PORT}:${NGINX_PORT}
+            - ${NGINX_PORT}:80
         env_file: 
             - nginx/env/local.env
         volumes:

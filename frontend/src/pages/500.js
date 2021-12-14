@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import BaseSection from '../components/sections/BaseSection';
 
 function Custom500() {
-    return <div className="flex min-h-[75vh]">
+    return <div className="flex min-h-[70vh]">
         <div className="m-auto">
             <BaseSection>
             <span className="text-6xl text-center">500</span>

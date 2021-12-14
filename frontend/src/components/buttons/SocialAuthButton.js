@@ -3,7 +3,7 @@ import React from 'react'
 function SocialAuthButton({children, isSubmitting, ...props}) {
     return (
         <button
-            className="border border-secondary bg-secondary w-[49%] rounded-[8px] px-[32px] py-[6px] text-third hover:bg-third hover:text-secondary"
+            className="border border-secondary bg-secondary w-[49%] rounded-[.375rem] px-[32px] py-[6px] text-third hover:bg-third hover:text-secondary"
             {...props}
         >   
         {!isSubmitting? children: 

@@ -6,5 +6,6 @@
   "addWorkout": "Add workout",
   "remove": "Remove exercise",
   "workoutPlans": "Workout Plans",
-  "exercises": "Exercises"
+  "exercises": "Exercises",
+  "name": "Workout's name"
 }

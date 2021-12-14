@@ -1,13 +1,14 @@
 
+from django.db import transaction
 from workouts.models import Exercise, WorkoutPlan
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import PrimaryKeyRelatedField, ModelSerializer
 
 
 
 class ExerciseSerializer(ModelSerializer):
     class Meta:
         model = Exercise
-        fields = ("name",)
+        fields = ("name", "id")
 
 
 class WorkoutPlanSerializer(ModelSerializer):
@@ -15,4 +16,13 @@ class WorkoutPlanSerializer(ModelSerializer):
     
     class Meta:
         model = WorkoutPlan
-        fields = ("name", "exercises")
+        fields = ("id", "name", "exercises")
+
+
+class CreateWorkoutPlanSerializer(ModelSerializer):
+    exercises = PrimaryKeyRelatedField(many=True, queryset=Exercise.objects.all())
+    
+    class Meta:
+        model = WorkoutPlan
+        fields = ("id", "name", "exercises")
+
