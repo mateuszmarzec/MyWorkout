@@ -20,7 +20,7 @@ function WorkoutPlansTable({workoutPlans}) {
                     {workoutPlans && workoutPlans.map(workout => {
                         return <Link key={workout.name} href="#"><tr>
                             <td className="px-6 py-4 whitespace-nowrap">{workout.name}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-6 py-4 whitespace-nowrap space-x-1">
                                 {workout.exercises.map(exercise => { return <span className="px-3 py-1 inline-flex text-sm font-normal leading-5 rounded-full bg-secondary text-third" key={exercise.name}>{exercise.name}</span>})}
                             </td>
                         </tr></Link>

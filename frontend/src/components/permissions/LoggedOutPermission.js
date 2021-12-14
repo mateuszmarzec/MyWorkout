@@ -2,11 +2,11 @@ import React from 'react';
 import authService from '../../services/auth.service';
 
 function LoggedOutPermission({children}) {
-    const { user } = authService.useUser()
+    const { user, isValidating } = authService.useUser()
 
     return (
         <>
-            {!user && children}
+            {!isValidating && !user && children}
         </>
     )
 }

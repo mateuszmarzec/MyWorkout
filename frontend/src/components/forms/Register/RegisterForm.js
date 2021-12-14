@@ -77,7 +77,7 @@ const RegisterForm = () => {
                     </form>
                     )}
                     </Formik>
-                    <span className="flex flex-row my-6 before:flex-1 before:border-b-2 before:m-auto before:mr-[10px] before:ml-20 after:flex-1 after:border-b-2 after:m-auto after:ml-[10px] after:mr-20">{t('or')}</span>
+                    <span className="flex flex-row my-6 before:flex-1 before:border-b before:m-auto before:mr-[10px] before:ml-20 after:flex-1 after:border-b after:m-auto after:ml-[10px] after:mr-20">{t('or')}</span>
                     <div className="flex justify-between">
                         <GoogleButton setErrors={setRegisterErrors} />
                         <FacebookButton  setErrors={setRegisterErrors} />
