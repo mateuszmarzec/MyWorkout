@@ -7,6 +7,7 @@ import validationSchema from './validationSchema';
 import initialValues from './initialValues';;
 import ExerciseSelect from '../../inputs/ExerciseSelect';
 import workoutService from '../../../services/workout.service';
+import Error from '../../alerts/Error';
 import { useRouter } from 'next/router';
 
 const WorkoutForm = () => {
