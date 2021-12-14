@@ -4,15 +4,15 @@ import workoutService from '../../services/workout.service';
 import { useField } from 'formik';
 import { capitalize } from '../../utils/extraFunctions';
 
-function ExerciseSelect({onInputChange, onBlur, onChange, value, ...props}) {
+function ExerciseSelect({errors, onInputChange, onBlur, onChange, value, ...props}) {
     const [field, meta] = useField(props);
     const [options, setOptions] = useState([])
 
     const customStyles = {
         control: (provided, state) => ({
         ...provided,
-        flex: 1,
         border: 0,
+        minHeight: "54px",
         }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
             return {
@@ -58,7 +58,7 @@ function ExerciseSelect({onInputChange, onBlur, onChange, value, ...props}) {
     return (
         <>
             <AsyncSelect
-                className={"rounded-[.375rem] flex border shadow-input font-light box-border font-[16px] h-[56px] w-full border-fifth focus:outline-none focus:border-secondary " + (meta.touched && !!meta.error ? "border-red-700": "")}
+                className={"rounded-[.375rem] border shadow-input font-light box-border font-[16px] border-fifth" + (meta.touched && !!meta.error ? "border-red-700": "")}
                 styles={customStyles}
                 cacheOptions
                 key={value.length}
@@ -77,6 +77,7 @@ function ExerciseSelect({onInputChange, onBlur, onChange, value, ...props}) {
                 {...props}
             />
             {meta.touched && !!meta.error && <p className="text-red-700 font-normal text-sm pl-2">{capitalize(meta.error)}</p>}
+            {meta.touched && !!errors && <p className="text-red-700 font-normal text-sm pl-2">{errors.join(" ")}</p>}
         </>
     )
 }

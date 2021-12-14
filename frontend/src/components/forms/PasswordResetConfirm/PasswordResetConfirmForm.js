@@ -59,7 +59,7 @@ const PasswordResetConfirmForm = ({userId, token}) => {
                         />
                         </div>
                         <div>
-                            <BaseButton type="submit" disabled={isSubmitting} text={t('passwordResetConfirm')} />
+                            <BaseButton type="submit" disabled={isSubmitting} isSubmitting={isSubmitting} text={t('passwordResetConfirm')} />
                         </div>
                     </form>
                     )}

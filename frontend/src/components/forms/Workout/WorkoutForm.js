@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, FieldArray } from 'formik';
 import { useTranslation } from 'next-i18next';
 import StyledTextInput from '../../inputs/StyledTextInput';
@@ -7,13 +7,22 @@ import validationSchema from './validationSchema';
 import initialValues from './initialValues';;
 import ExerciseSelect from '../../inputs/ExerciseSelect';
 import workoutService from '../../../services/workout.service';
+import { useRouter } from 'next/router';
 
 const WorkoutForm = () => {
-    const { t } = useTranslation('workout')
+    const { t } = useTranslation(['workout', 'common'])
+    const [addErrors, setAddErrors] = useState(false)
+    const router = useRouter()
 
     const handleAdd = async (data, {setSubmitting}) => {
         const newData = {...data, exercises: data.exercises.map(({value, label}) => {return value})}
-        await workoutService.addWorkoutPlan(newData)
+        try{
+            await workoutService.addWorkoutPlan(newData)
+        }
+        catch(err){
+            setAddErrors(error.response.data)
+        }
+        router.push("/workouts")
     }
 
     return (
@@ -25,6 +34,7 @@ const WorkoutForm = () => {
                 <Formik validationSchema={validationSchema} validateOnChange={false} validateOnBlur={false} onSubmit={handleAdd} initialValues={initialValues}>
                 {({values, touched, errors, handleSubmit, isSubmitting, handleChange, setFieldValue, setFieldTouched}) => (
                     <form className="mt-8" onSubmit={handleSubmit} noValidate>
+                        {addErrors && typeof registerErrors === 'string' && <Error>{t('common:error')}</Error>}
                         <div className="rounded-md mb-6">
                             <StyledTextInput 
                                 id="name"
@@ -32,6 +42,7 @@ const WorkoutForm = () => {
                                 type="text"
                                 required
                                 placeholder={t('name')}
+                                errors={addErrors.name}
                             />
                             <ExerciseSelect
                                 id="exercises"
@@ -39,10 +50,11 @@ const WorkoutForm = () => {
                                 value={values.exercises}
                                 onChange={setFieldValue}
                                 onBlur={setFieldTouched}
+                                errors={addErrors.exercises}
                             />
                         </div>
                         <div>
-                            <BaseButton type="submit" disabled={isSubmitting} text={t('addWorkout')} />
+                            <BaseButton type="submit" disabled={isSubmitting} isSubmitting={isSubmitting} text={t('addWorkout')} />
                         </div>
                     </form>
                     )}

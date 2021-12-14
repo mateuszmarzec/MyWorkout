@@ -72,7 +72,7 @@ const RegisterForm = () => {
                             />
                         </div>
                         <div>
-                            <BaseButton type="submit" disabled={isSubmitting} text={t('sign_up')} />
+                            <BaseButton type="submit" disabled={isSubmitting} isSubmitting={isSubmitting} text={t('sign_up')} />
                         </div>
                     </form>
                     )}

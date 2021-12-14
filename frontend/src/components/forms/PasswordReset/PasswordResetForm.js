@@ -50,7 +50,7 @@ const PasswordResetForm = () => {
                             />
                         </div>
                         <div>
-                            <BaseButton type="submit" disabled={isSubmitting} text={t('passwordReset')} />
+                            <BaseButton type="submit" disabled={isSubmitting} isSubmitting={isSubmitting} text={t('passwordReset')} />
                         </div>
                     </form>
                     )}
