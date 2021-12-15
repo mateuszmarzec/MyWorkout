@@ -3,7 +3,7 @@
 import autoslug.fields
 from django.conf import settings
 import django.contrib.postgres.fields.citext
-from django.db import migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='exercise',
             name='name',
-            field=django.contrib.postgres.fields.citext.CITextField(max_length=100),
+            field=models.CharField(max_length=100),
         ),
         migrations.AlterField(
             model_name='exercise',
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='workout',
             name='name',
-            field=django.contrib.postgres.fields.citext.CITextField(max_length=200),
+            field=models.CharField(max_length=200),
         ),
         migrations.AlterField(
             model_name='workout',

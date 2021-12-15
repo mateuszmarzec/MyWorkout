@@ -2,7 +2,7 @@
 
 import autoslug.fields
 import django.contrib.postgres.fields.citext
-from django.db import migrations
+from django.db import migrations, models
 from django.utils.text import slugify
 
 
@@ -50,12 +50,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='exercise',
             name='name',
-            field=django.contrib.postgres.fields.citext.CITextField(max_length=100, unique=True),
+            field=models.CharField(max_length=100, unique=True),
         ),
         migrations.AlterField(
             model_name='workout',
             name='name',
-            field=django.contrib.postgres.fields.citext.CITextField(max_length=200, unique=True),
+            field=models.CharField(max_length=200, unique=True),
         ),
         migrations.RunPython(gen_slug, reverse_code=migrations.RunPython.noop),
     ]
