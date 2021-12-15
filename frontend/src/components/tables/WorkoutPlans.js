@@ -2,9 +2,11 @@ import React from 'react'
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import TableButton from '../buttons/TableButton';
+import workoutService from '../../services/workout.service';
 
-function WorkoutPlansTable({workoutPlans}) {
+function WorkoutPlansTable() {
     const { t } = useTranslation('workout');
+    const { data } = workoutService.useWorkoutPlans()
 
     return (
         <div>
@@ -16,9 +18,9 @@ function WorkoutPlansTable({workoutPlans}) {
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('exercises')}</th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                    {workoutPlans && workoutPlans.map(workout => {
-                        return <Link key={workout.name} href="#"><tr>
+                <tbody className="divide-y divide-gray-200 ">
+                    {data && data.map(workout => {
+                        return <Link key={workout.name} href={`workouts/${workout.slug}`}><tr className="hover:scale-x-[1.01] bg-white hover:shadow-table cursor-pointer transition-transform ease-in-out">
                             <td className="px-6 py-4 whitespace-nowrap">{workout.name}</td>
                             <td className="px-6 py-4 whitespace-nowrap space-x-1">
                                 {workout.exercises.map(exercise => { return <span className="px-3 py-1 inline-flex text-sm font-normal leading-5 rounded-full bg-secondary text-third" key={exercise.name}>{exercise.name}</span>})}

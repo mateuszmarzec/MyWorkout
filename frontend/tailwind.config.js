@@ -69,7 +69,8 @@ module.exports = {
       },
       boxShadow: {
         'input': '0 4px 0 rgba(91,105,135,0.2)',
-        'navbar': 'rgb(3 27 78 / 10%) 0 2px 4px'
+        'navbar': 'rgb(3 27 78 / 10%) 0 2px 4px',
+        'table': '0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06)'
        }
     },
   },

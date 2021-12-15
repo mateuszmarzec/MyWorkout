@@ -11,6 +11,14 @@ class WorkoutService {
             isError: error
         }
     }
+    useWorkoutPlan(slug) {
+        const { data, error, isValidating } = useSWR(`/workout-plans/${slug}`, fetcher)
+        return {
+            data: data,
+            isValidating: isValidating,
+            isError: error
+        }
+    }
     async getExercises(name) {
         const response = await tokenizeAxios.get(`/exercises?search=${name}`);
         return response.data;

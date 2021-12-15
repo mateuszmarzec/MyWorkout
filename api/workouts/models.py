@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.contrib.postgres.fields import CITextField
+from autoslug import AutoSlugField
 
 from workouts.managers import WorkoutActivityManager, WorkoutPlanManager
 
@@ -7,7 +9,8 @@ User = get_user_model()
 
 
 class Workout(models.Model):
-    name = models.CharField(max_length=200)
+    name = CITextField(max_length=200)
+    slug = AutoSlugField(populate_from='name')
     exercises = models.ManyToManyField(
         to="Exercise",
         through="WorkoutExercise",
@@ -27,6 +30,10 @@ class Workout(models.Model):
     user = models.ForeignKey(
         to=User, on_delete=models.CASCADE, related_name="workouts"
     )
+
+    class Meta:
+        unique_together = ('user', 'name',)
+        unique_together = ('user', 'slug',)
 
     def __str__(self) -> str:
         return f"{self.name} - User: {self.user}"
@@ -93,7 +100,8 @@ class Muscle(models.Model):
 
 
 class Exercise(models.Model):
-    name = models.CharField(max_length=100)
+    name = CITextField(max_length=100)
+    slug = AutoSlugField(populate_from='name')
     target = models.ForeignKey(
         to=Muscle, on_delete=models.CASCADE, related_name="exercises"
     )

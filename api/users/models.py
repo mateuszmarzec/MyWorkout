@@ -55,14 +55,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def workout_plans(self) -> QuerySet:
-        queryset = self.workouts.filter(workout_plan__isnull=True)
-        queryset.model = workout_models.WorkoutPlan
+        queryset = workout_models.WorkoutPlan.objects.filter(user=self)
         return queryset
 
     @property
     def workout_activities(self) -> QuerySet:
-        queryset = self.workouts.filter(workout_plan__isnull=False)
-        queryset.model = workout_models.WorkoutActivity
+        queryset =  workout_models.WorkoutActivity.objects.filter(user=self)
         return queryset
 
     @property

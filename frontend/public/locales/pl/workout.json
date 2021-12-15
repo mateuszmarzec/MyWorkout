@@ -7,5 +7,8 @@
   "remove": "Usuń ćwiczenie",
   "workoutPlans": "Planowane treningi",
   "exercises": "Ćwiczenia",
-  "name": "Nazwa treningu"
+  "name": "Nazwa treningu",
+  "date": "Data",
+  "weight": "Ciężar",
+  "reps": "Powtórzenia"
 }
