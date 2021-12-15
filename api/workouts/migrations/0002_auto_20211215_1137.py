@@ -50,12 +50,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='exercise',
             name='name',
-            field=models.CharField(max_length=100, unique=True),
+            field=models.CharField(max_length=100),
         ),
         migrations.AlterField(
             model_name='workout',
             name='name',
-            field=models.CharField(max_length=200, unique=True),
+            field=models.CharField(max_length=200),
         ),
         migrations.RunPython(gen_slug, reverse_code=migrations.RunPython.noop),
     ]

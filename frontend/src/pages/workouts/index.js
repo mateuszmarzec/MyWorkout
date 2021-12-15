@@ -11,7 +11,7 @@ function Workouts() {
     return (
         <PermissionWrapper>
             <BaseSection>
-                <WorkoutPlansTable workoutPlans/>
+                <WorkoutPlansTable/>
             </BaseSection>
         </PermissionWrapper>
     )
