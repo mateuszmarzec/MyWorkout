@@ -2,27 +2,38 @@ import React from 'react'
 import { useTranslation } from 'next-i18next';
 import workoutService from '../../services/workout.service';
 import { formatDate } from '../../utils/extraFunctions';
+import TableButton from '../buttons/TableButton';
 import Link from 'next/link';
+import { useSWRConfig } from 'swr';
 
-function WorkoutActivitiesTable() {
+function WorkoutPlanActivitiesTable({slug}) {
     const { t } = useTranslation('workout');
-    const { data } = workoutService.useWorkoutActivities()
+    const { data } = workoutService.useWorkoutPlan(slug)
+    const { mutate } = useSWRConfig()
+
+    const handleOnClick = async() => {
+        await workoutService.addWorkoutActivity({workoutPlan: slug})
+        mutate(`/workout-plans/${slug}`)
+    }
 
     return (
         <div>
+            <div className="flex justify-between">
+                <h1 className="text-5xl">{data && data.name}</h1>
+                <div className="flex justify-end"><TableButton text={t('addWorkoutActivity')} onClick={handleOnClick}/></div>
+            </div>
             <table className="min-w-full divide-y divide-gray-200 mt-5">
                 <thead className="bg-gray-50">
                     <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('date')}</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('exercises')}</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('sets')}</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('workoutPlan')}</th>
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {data && data.map(workout => {
-                        return <Link key={workout.name} href={`workouts/${workout.slug}`}><tr className="hover:scale-x-[1.01] bg-white hover:shadow-table cursor-pointer transition-transform ease-in-out">
-                            <td className="px-6 py-4 whitespace-nowrap">{formatDate(workout.created)}</td>
+                    {data && data.workouts.map(workout => {
+                        return <Link key={workout.name} href={`/workouts/${workout.slug}`}><tr className="hover:scale-x-[1.01] bg-white hover:shadow-table cursor-pointer transition-transform ease-in-out">
+                            <td className="px-6 py-3">{formatDate(workout.created)}</td>
                             <td className="px-6 py-3 mt-5">
                                 {workout.workoutexerciseSet.map(workoutExercise => {
                                     return <tr className="px-6 py-4 whitespace-nowrap" key={workoutExercise.id}>
@@ -45,7 +56,6 @@ function WorkoutActivitiesTable() {
                                     </tr>
                                 })}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">{workout.workoutPlan}</td>
                         </tr></Link>
                     })}
                 </tbody>
@@ -54,4 +64,4 @@ function WorkoutActivitiesTable() {
     )
 }
 
-export default WorkoutActivitiesTable
+export default WorkoutPlanActivitiesTable

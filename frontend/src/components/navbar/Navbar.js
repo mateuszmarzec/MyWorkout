@@ -21,7 +21,7 @@ function Navbar() {
                     <Link href="/about">{t('about')}</Link>
                 </Item>
                 <LoggedInPermission>
-                    <Item><Link href="/workouts">{t('workouts')}</Link></Item>
+                    <Item><Link href="/workout-plans">{t('workouts')}</Link></Item>
                     <Item><Link href="/progressions">{t('progressions')}</Link></Item>
                     <Item onClick={async() => {await authService.logout(); replace("/")}}><span className="cursor-pointer">{t('logout')}</span></Item>
                 </LoggedInPermission>

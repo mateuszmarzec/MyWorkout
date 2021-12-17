@@ -4,13 +4,13 @@ import workoutService from '../../services/workout.service';
 import { useRouter } from 'next/router';
 import PermissionWrapper from '../../components/permissions/PermissionWrapper';
 import BaseSection from '../../components/sections/BaseSection';
-import WorkoutActivityTable from '../../components/tables/WorkoutActivity';
+import WorkoutPlanActivitiesTable from '../../components/tables/WorkoutPlanActivities';
 
-function Workout() {
+function WorkoutPlan() {
     const router = useRouter()
     const { slug } = router.query
 
-    const { data, isValidating } = workoutService.useWorkoutActivity(slug)
+    const { data, isValidating } = workoutService.useWorkoutPlan(slug)
     useEffect(() => {
         if (!(data || isValidating)) {
             router.push(`/404`);
@@ -20,7 +20,7 @@ function Workout() {
     return (
         <PermissionWrapper>
             <BaseSection>
-                <WorkoutActivityTable slug={slug} />
+                <WorkoutPlanActivitiesTable slug={slug}/>
             </BaseSection>
         </PermissionWrapper>
     )
@@ -30,4 +30,4 @@ export async function getServerSideProps({ locale }) {
     return { props: { ...await serverSideTranslations(locale) } }
 }
 
-export default Workout
+export default WorkoutPlan

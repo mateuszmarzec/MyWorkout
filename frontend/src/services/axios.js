@@ -3,9 +3,9 @@ import applyCaseMiddleware from 'axios-case-converter';
 
 const API_URL = "/api"
 
-const instanceTokenizeAxios = baseAxios.create({
+const instanceTokenizeAxios = applyCaseMiddleware(baseAxios.create({
     baseURL: API_URL
-});
+}));
 
 instanceTokenizeAxios.interceptors.request.use(
     (config) => {

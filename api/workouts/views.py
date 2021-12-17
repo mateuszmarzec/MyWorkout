@@ -2,8 +2,7 @@ from django.db.models.query import QuerySet
 from rest_framework import generics, filters, viewsets
 from rest_framework.permissions import IsAuthenticated
 from workouts.models import WorkoutPlan, WorkoutActivity, Exercise, WorkoutExerciseSet
-from workouts.serializers import ListWorkoutPlanSerializer, GetWorkoutPlanSerializer, CreateWorkoutPlanSerializer, ExerciseSerializer, WorkoutActivitySerializer
-from users.models import User
+from workouts.serializers import ListWorkoutPlanSerializer, GetWorkoutPlanSerializer, CreateWorkoutPlanSerializer, ExerciseSerializer, ListWorkoutActivitySerializer, CreateWorkoutActivitySerializer, CreateWorkoutExerciseSetSerializer, UpdateWorkoutExerciseSetSerializer
 
 
 class ListWorkoutPlanView(generics.ListAPIView):
@@ -32,13 +31,35 @@ class CreateWorkoutPlanView(generics.CreateAPIView):
         serializer.save(user=self.request.user)
 
 
-class WorkoutActivityView(generics.ListAPIView):
+class WorkoutActivityViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
-    serializer_class = WorkoutActivitySerializer
+    serializer_class = ListWorkoutActivitySerializer
     filterset_fields = ['workout_plan__slug']
+    lookup_field = "slug"
     
     def get_queryset(self) -> QuerySet:
         return self.request.user.workout_activities
+
+
+class CreateWorkoutActivityView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CreateWorkoutActivitySerializer
+
+    def perform_create(self, serializer: CreateWorkoutActivitySerializer) -> None:
+        serializer.save(user=self.request.user)
+
+
+class CreateWorkoutExerciseSetView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CreateWorkoutExerciseSetSerializer
+
+
+class UpdateWorkoutExerciseSetView(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UpdateWorkoutExerciseSetSerializer
+
+    def get_queryset(self) -> QuerySet:
+        return WorkoutExerciseSet.objects.filter(workout_exercise__workout__user=self.request.user)
 
 
 class ExerciseView(generics.ListCreateAPIView):

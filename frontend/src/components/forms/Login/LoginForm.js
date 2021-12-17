@@ -27,7 +27,7 @@ const LoginForm = () => {
             setSubmitting(false)
             return
         }
-        router.push(`/${router.query.next || "workouts"}`)
+        router.push(`/${router.query.next || "workout-plans"}`)
     }
 
     return (
