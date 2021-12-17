@@ -56,6 +56,10 @@ class CreateWorkoutActivitySerializer(ModelSerializer):
         model = WorkoutActivity
         fields = ("workout_plan", "id", "slug", "name")
 
+    def create(self, validated_data: dict) -> WorkoutActivity:
+        validated_data["exercises"] = validated_data["workout_plan"].exercises.all()
+        return super().create(validated_data)
+
 
 class ListWorkoutPlanSerializer(ModelSerializer):
     exercises = ExerciseSerializer(many=True)
