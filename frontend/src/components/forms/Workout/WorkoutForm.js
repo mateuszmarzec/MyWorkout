@@ -30,7 +30,7 @@ const WorkoutForm = () => {
         <div className="min-h-full flex items-center justify-center">
             <div className="md:max-w-lg w-full space-y-4">
                 <div>
-                    <h2 className="text-primary mt-6 text-center text-3xl font-bold">{t('addWorkout')}</h2>
+                    <h2 className="text-primary mt-6 text-center text-3xl font-bold">{t('addWorkoutPlan')}</h2>
                 </div>
                 <Formik validationSchema={validationSchema} validateOnChange={false} validateOnBlur={false} onSubmit={handleAdd} initialValues={initialValues}>
                 {({values, touched, errors, handleSubmit, isSubmitting, handleChange, setFieldValue, setFieldTouched}) => (
@@ -55,7 +55,7 @@ const WorkoutForm = () => {
                             />
                         </div>
                         <div>
-                            <BaseButton type="submit" disabled={isSubmitting} isSubmitting={isSubmitting} text={t('addWorkout')} />
+                            <BaseButton type="submit" disabled={isSubmitting} isSubmitting={isSubmitting} text={t('addWorkoutPlan')} />
                         </div>
                     </form>
                     )}

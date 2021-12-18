@@ -10,7 +10,7 @@ function WorkoutPlansTable() {
 
     return (
         <div>
-            <div className="flex justify-end"><Link href="/workouts/add-workout/"><TableButton text={t('addWorkoutPlan')}/></Link></div>
+            <div className="flex justify-end"><Link href="/workout-plans/add-workout/"><TableButton text={t('addWorkoutPlan')}/></Link></div>
             <table className="min-w-full divide-y divide-gray-200 mt-5">
                 <thead className="bg-gray-50">
                     <tr>
