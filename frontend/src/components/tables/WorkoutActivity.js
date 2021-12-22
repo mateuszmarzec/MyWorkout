@@ -4,6 +4,7 @@ import workoutService from '../../services/workout.service';
 import { useSWRConfig } from 'swr';
 import CollapsibleDiv from '../divs/CollapsibleDiv';
 import RoundedButton from '../buttons/RoundedButton';
+import { formatDate } from '../../utils/extraFunctions';
 
 function WorkoutActivityTable({slug}) {
     const { t } = useTranslation('workout');
@@ -12,9 +13,20 @@ function WorkoutActivityTable({slug}) {
 
     return (
         <div>
+            <div className="flex justify-between">
+                <h1 className="text-3xl">{data && data.workoutPlan}</h1>
+                <h1 className="text-xl">{data && formatDate(data.created)}</h1>
+            </div>
             {data && data.workoutexerciseSet.map((workout, workoutIndex) => {
                 return <CollapsibleDiv key={workoutIndex} title={workout.exercise.name}>
-                    <div className="p-5 flex overflow-y-scroll">
+                    <div className="p-5 flex">
+                    <div className="inline-flex py-2 pr-2">
+                        <div className="flex flex-col space-y-1">
+                            <span>{t('reps')}</span>
+                            <span>{t('weight')}</span>
+                        </div>
+                    </div>
+                    <div className="overflow-y-scroll no-scrollbar no-scrollbar::-webkit-scrollbar flex">
                     {workout.sets.map((set, index) => {
                         return <div className="inline-flex p-2" key={index}>
                             <div className="flex flex-col space-y-1">
@@ -41,7 +53,7 @@ function WorkoutActivityTable({slug}) {
                                         await workoutService.addWorkoutExerciseSet({workoutExercise: workout.id, reps:Number(set.reps), weight:Number(set.weight)})
                                     }
                                     mutate(`/workout-activities/${slug}`)
-                                }} inputMode="decimal" pattern="[0-9]*(.[0-9]+)?" maxLength={4} size={4} className="outline-none bg-third font-light text-fourth appearance-none" placeholder={"0.0"} type="text" value={set.weight} id={`${workoutIndex}-weight-${index}`} name={`weight-${index}`} onChange={(e) => {set.weight=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
+                                }} inputMode="decimal" pattern="[0-9]*(.[0-9]+)?" maxLength={5} size={3} className="outline-none bg-third font-light text-fourth appearance-none" placeholder={"0.0"} type="text" value={set.weight} id={`${workoutIndex}-weight-${index}`} name={`weight-${index}`} onChange={(e) => {set.weight=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
                             </div>
                         </div>      
                     })}
@@ -56,6 +68,7 @@ function WorkoutActivityTable({slug}) {
                     >
                         <svg className="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" fillRule="evenodd"></path></svg>
                     </RoundedButton>
+                    </div>
                     </div>
                 </CollapsibleDiv>
             })}

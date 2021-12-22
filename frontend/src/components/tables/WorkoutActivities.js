@@ -9,7 +9,7 @@ function WorkoutActivitiesTable() {
     const { data } = workoutService.useWorkoutActivities()
 
     return (
-        <div>
+        <div className="overflow-x-scroll no-scrollbar no-scrollbar::-webkit-scrollbar">
             <table className="min-w-full divide-y divide-gray-200 mt-5">
                 <thead className="bg-gray-50">
                     <tr>
