@@ -76,8 +76,8 @@ class WorkoutExerciseSet(models.Model):
     workout_exercise = models.ForeignKey(
         to=WorkoutExercise, on_delete=models.CASCADE, related_name="sets"
     )
-    reps = models.SmallIntegerField()
-    weight = models.DecimalField(decimal_places=1, max_digits=4)
+    reps = models.SmallIntegerField(default=0, blank=True)
+    weight = models.DecimalField(decimal_places=1, max_digits=4, default=0, blank=True)
 
     class Meta:
         verbose_name = "workout exercise set"

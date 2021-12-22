@@ -1,7 +1,7 @@
 
 from django.db import transaction
 from workouts.models import Exercise, WorkoutPlan, WorkoutActivity, WorkoutExercise, WorkoutExerciseSet
-from rest_framework.serializers import PrimaryKeyRelatedField, SlugRelatedField, ModelSerializer, Serializer, CharField, ValidationError
+from rest_framework.serializers import PrimaryKeyRelatedField, SlugRelatedField, ModelSerializer, Serializer, CharField, ValidationError, IntegerField, DecimalField
 from datetime import datetime
 from django.db.models.query import QuerySet
 
@@ -93,6 +93,8 @@ class WorkoutExerciseSlugRelatedField(PrimaryKeyRelatedField):
 
 class CreateWorkoutExerciseSetSerializer(ModelSerializer):
     workout_exercise = WorkoutExerciseSlugRelatedField()
+    reps = IntegerField(max_value=999, min_value=0, required=False)
+    weight = DecimalField(decimal_places=1, max_digits=4, min_value=0, max_value=999, required=False)
 
     class Meta:
         model = WorkoutExerciseSet
@@ -100,6 +102,9 @@ class CreateWorkoutExerciseSetSerializer(ModelSerializer):
 
 
 class UpdateWorkoutExerciseSetSerializer(ModelSerializer):
+    reps = IntegerField(max_value=999, min_value=0, required=False)
+    weight = DecimalField(decimal_places=1, max_digits=4, min_value=0, max_value=999, required=False)
+
     class Meta:
         model = WorkoutExerciseSet
         fields = ("reps", "weight", "id")
