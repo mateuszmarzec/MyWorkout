@@ -23,7 +23,10 @@ function WorkoutActivityTable({slug}) {
                                         await workoutService.updateWorkoutExerciseSet(set.id, {reps:Number(set.reps), weight:Number(set.weight)})
                                     }
                                     else {
-                                        await workoutService.addWorkoutExerciseSet({workoutExercise: workout.id, reps:Number(set.reps)})
+                                        if (!(set.reps && set.weight)) {
+                                            return
+                                        }
+                                        await workoutService.addWorkoutExerciseSet({workoutExercise: workout.id, reps:Number(set.reps), weight:Number(set.weight)})
                                     }
                                     mutate(`/workout-activities/${slug}`)
                                 }} inputMode="numeric" pattern="[0-9]*" className="outline-none bg-third font-light text-fourth appearance-none" placeholder={0} type="text" maxLength={3} size={3} value={set.reps} id={`${workoutIndex}-reps-${index}`} name={`reps-${index}`} onChange={(e) => {set.reps=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
@@ -32,7 +35,10 @@ function WorkoutActivityTable({slug}) {
                                         await workoutService.updateWorkoutExerciseSet(set.id, {reps:Number(set.reps), weight:Number(set.weight)})
                                     }
                                     else {
-                                        await workoutService.addWorkoutExerciseSet({workoutExercise: workout.id, weight:Number(set.weight)})
+                                        if (!(set.reps && set.weight)) {
+                                            return
+                                        }
+                                        await workoutService.addWorkoutExerciseSet({workoutExercise: workout.id, reps:Number(set.reps), weight:Number(set.weight)})
                                     }
                                     mutate(`/workout-activities/${slug}`)
                                 }} inputMode="decimal" pattern="[0-9]*(.[0-9]+)?" maxLength={4} size={4} className="outline-none bg-third font-light text-fourth appearance-none" placeholder={"0.0"} type="text" value={set.weight} id={`${workoutIndex}-weight-${index}`} name={`weight-${index}`} onChange={(e) => {set.weight=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
