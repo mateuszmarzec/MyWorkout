@@ -14,12 +14,12 @@ function WorkoutActivityTable({slug}) {
     return (
         <div>
             <div className="flex justify-between">
-                <h1 className="text-3xl">{data && data.workoutPlan}</h1>
-                <h1 className="text-xl">{data && formatDate(data.created)}</h1>
+                <h1 className="text-3xl mt-auto">{data && data.workoutPlan}</h1>
+                <h1 className="text-xl mt-auto">{data && formatDate(data.created)}</h1>
             </div>
             {data && data.workoutexerciseSet.map((workout, workoutIndex) => {
-                return <CollapsibleDiv key={workoutIndex} title={workout.exercise.name}>
-                    <div className="p-5 flex">
+                return <CollapsibleDiv key={workoutIndex} title={workout.exercise.name} target={workout.exercise.target}>
+                    <div className="px-5 pb-5 flex">
                     <div className="inline-flex py-2 pr-2">
                         <div className="flex flex-col space-y-1">
                             <span>{t('reps')}</span>

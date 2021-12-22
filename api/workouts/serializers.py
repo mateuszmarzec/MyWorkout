@@ -7,9 +7,14 @@ from django.db.models.query import QuerySet
 
 
 class ExerciseSerializer(ModelSerializer):
+    target = SlugRelatedField(
+        slug_field='name',
+        read_only=True
+    )
+
     class Meta:
         model = Exercise
-        fields = ("name", "slug", "id")
+        fields = ("name", "slug", "target", "id")
 
 
 class WorkoutExerciseSetSerializer(ModelSerializer):
