@@ -1,8 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next';
 import workoutService from '../../services/workout.service';
-import { formatDate } from '../../utils/extraFunctions';
 import { useSWRConfig } from 'swr';
+import CollapsibleDiv from '../divs/CollapsibleDiv';
+import RoundedButton from '../buttons/RoundedButton';
 
 function WorkoutActivityTable({slug}) {
     const { t } = useTranslation('workout');
@@ -11,7 +12,7 @@ function WorkoutActivityTable({slug}) {
 
     return (
         <div>
-            <table className="min-w-full divide-y divide-gray-200 mt-5">
+            {/* <table className="min-w-full divide-y divide-gray-200 mt-5">
                 <thead className="bg-gray-50">
                     <tr>
 
@@ -36,17 +37,42 @@ function WorkoutActivityTable({slug}) {
                                         }} size="3" maxLength={5} className="outline-none bg-secondary" type="text" value={set.weight} name={`weight-${index}`} onChange={(e) => {set.weight=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
                                     </div></span>       
                                 })}
-                                <button onClick={async() => {
-                                    workout.sets =[...workout.sets, {weight: 0, reps: 0}]
-                                    mutate(`/workout-activities/${slug}`, {...data}, false)
-                                    await workoutService.addWorkoutExerciseSet({workoutExercise: workout.id, reps:0, weight: 0})
-                                    mutate(`/workout-activities/${slug}`)
-                                }}>+</button>
+
                             </td>
                         </tr>
                     })}
                 </tbody>
-            </table>
+            </table> */}
+            {data && data.workoutexerciseSet.map(workout => {
+                return <CollapsibleDiv key={workout.exercise.name} title={workout.exercise.name}>
+                    <div className="p-5 flex">
+                    {workout.sets.map((set, index) => {
+                        return <div className="inline-flex p-2" key={set.id}>
+                            <div className="flex flex-col">
+                                <input onBlur={async() => {
+                                    await workoutService.updateWorkoutExerciseSet(set.id, {reps:set.reps, weight:set.weight})
+                                    mutate(`/workout-activities/${slug}`)
+                                }} inputmode="numeric" pattern="[0-9]*" className="outline-none bg-third font-light text-fourth appearance-none" type="text" maxLength={3} size={3} value={set.reps} name={`reps-${index}`} onChange={(e) => {set.reps=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
+                                <input onBlur={async() => {
+                                    await workoutService.updateWorkoutExerciseSet(set.id, {reps:set.reps, weight:set.weight})
+                                    mutate(`/workout-activities/${slug}`)
+                                }} inputmode="decimal" pattern="[0-9]*(.[0-9]+)?" maxLength={4} size={4} className="outline-none bg-third font-light text-fourth appearance-none" type="text" value={set.weight} name={`weight-${index}`} onChange={(e) => {set.weight=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
+                            </div>
+                        </div>      
+                    })}
+                    <RoundedButton
+                        onClick={async() => {
+                            workout.sets =[...workout.sets, {weight: 0, reps: 0}]
+                            mutate(`/workout-activities/${slug}`, {...data}, false)
+                            await workoutService.addWorkoutExerciseSet({workoutExercise: workout.id, reps:0, weight: 0})
+                            mutate(`/workout-activities/${slug}`)
+                        }}
+                    >
+                        <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                    </RoundedButton>
+                    </div>
+                </CollapsibleDiv>
+            })}
         </div>
     )
 }
