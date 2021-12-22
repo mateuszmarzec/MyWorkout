@@ -14,7 +14,7 @@ function WorkoutActivityTable({slug}) {
         <div>
             {data && data.workoutexerciseSet.map((workout, workoutIndex) => {
                 return <CollapsibleDiv key={workoutIndex} title={workout.exercise.name}>
-                    <div className="p-5 flex">
+                    <div className="p-5 flex overflow-y-scroll">
                     {workout.sets.map((set, index) => {
                         return <div className="inline-flex p-2" key={index}>
                             <div className="flex flex-col space-y-1">

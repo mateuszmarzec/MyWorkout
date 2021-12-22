@@ -20,7 +20,7 @@ function WorkoutPlansTable() {
                 </thead>
                 <tbody className="divide-y divide-gray-200 ">
                     {data && data.map(workout => {
-                        return <Link key={workout.name} href={`workout-plans/${workout.slug}`}><tr className="hover:scale-x-[1.01] bg-white hover:shadow-table cursor-pointer transition-transform ease-in-out">
+                        return <Link key={workout.name} href={`workout-plans/${workout.slug}`}><tr className="hover:scale-x-[1.01] bg-white hover:shadow-table cursor-pointer transition-transform ease-in-out overflow-y-scroll">
                             <td className="px-6 py-4 whitespace-nowrap">{workout.name}</td>
                             <td className="px-6 py-4 whitespace-nowrap space-x-1">
                                 {workout.exercises.map(exercise => { return <span className="px-3 py-1 inline-flex text-sm font-normal leading-5 rounded-full bg-secondary text-third" key={exercise.name}>{exercise.name}</span>})}

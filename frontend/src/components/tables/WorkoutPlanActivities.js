@@ -32,7 +32,7 @@ function WorkoutPlanActivitiesTable({slug}) {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                     {data && data.workouts.map(workout => {
-                        return <Link key={workout.name} href={`/workouts/${workout.slug}`}><tr className="hover:scale-x-[1.01] bg-white hover:shadow-table cursor-pointer transition-transform ease-in-out">
+                        return <Link key={workout.name} href={`/workouts/${workout.slug}`}><tr className="hover:scale-x-[1.01] bg-white hover:shadow-table cursor-pointer transition-transform ease-in-out overflow-y-scroll">
                             <td className="px-6 py-3">{formatDate(workout.created)}</td>
                             <td className="px-6 py-3 mt-5">
                                 {workout.workoutexerciseSet.map(workoutExercise => {
