@@ -52,11 +52,11 @@ function WorkoutActivityTable({slug}) {
                                 <input onBlur={async() => {
                                     await workoutService.updateWorkoutExerciseSet(set.id, {reps:set.reps, weight:set.weight})
                                     mutate(`/workout-activities/${slug}`)
-                                }} inputmode="numeric" pattern="[0-9]*" className="outline-none bg-third font-light text-fourth appearance-none" type="text" maxLength={3} size={3} value={set.reps} name={`reps-${index}`} onChange={(e) => {set.reps=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
+                                }} inputMode="numeric" pattern="[0-9]*" className="outline-none bg-third font-light text-fourth appearance-none" type="text" maxLength={3} size={3} value={set.reps} name={`reps-${index}`} onChange={(e) => {set.reps=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
                                 <input onBlur={async() => {
                                     await workoutService.updateWorkoutExerciseSet(set.id, {reps:set.reps, weight:set.weight})
                                     mutate(`/workout-activities/${slug}`)
-                                }} inputmode="decimal" pattern="[0-9]*(.[0-9]+)?" maxLength={4} size={4} className="outline-none bg-third font-light text-fourth appearance-none" type="text" value={set.weight} name={`weight-${index}`} onChange={(e) => {set.weight=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
+                                }} inputMode="decimal" pattern="[0-9]*(.[0-9]+)?" maxLength={4} size={4} className="outline-none bg-third font-light text-fourth appearance-none" type="text" value={set.weight} name={`weight-${index}`} onChange={(e) => {set.weight=e.target.value, mutate(`/workout-activities/${slug}`, {...data}, false)}}></input>
                             </div>
                         </div>      
                     })}
@@ -68,7 +68,7 @@ function WorkoutActivityTable({slug}) {
                             mutate(`/workout-activities/${slug}`)
                         }}
                     >
-                        <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                        <svg className="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" fillRule="evenodd"></path></svg>
                     </RoundedButton>
                     </div>
                 </CollapsibleDiv>
