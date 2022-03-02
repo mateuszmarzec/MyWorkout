@@ -10,7 +10,7 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Test api
         run: cp env/testing.env .env && cp api/env/testing.env api/.env && cp frontend/env/testing.env frontend/.env && cp nginx/env/testing.env nginx/.env && docker-compose up --build api
 
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       - name: Deploy app
         uses: appleboy/ssh-action@v0.1.2
